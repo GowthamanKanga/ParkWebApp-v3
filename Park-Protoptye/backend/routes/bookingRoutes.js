@@ -1,19 +1,19 @@
 const express = require('express')
 const route = express.Router()
-const order = require('../models/booking')
+const Booking = require('../models/booking')
 
-route.post('/bookings', async(req, res) => {
+route.post('/booking/add', async(req, res) => {
 
     const newBooking = req.body;
     if(JSON.stringify(newBooking) == null || JSON.stringify(newBooking) == '{}') {
         return res.status(400).send({
-            message: "Employee content can not be empty"
+            message: "Booking content can not be empty"
         });
     }
     else {
 
     try {
-        const booking = new order(newBooking)
+        const booking = new Booking(newBooking)
         await booking.save()
         res.status(201).send(booking)
     }

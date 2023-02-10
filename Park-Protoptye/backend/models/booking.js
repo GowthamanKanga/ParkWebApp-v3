@@ -5,15 +5,15 @@ const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
 
     bookingNumber: String,
-    facility: [{
+    facilities: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'amenitiy',
+        ref: 'facilityModel',
         required: true
     }],
 
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
 
@@ -23,11 +23,11 @@ const bookingSchema = new Schema({
         required: true,
 
         validate(value) {
-            if(value < 0) {
-                throw new Error("Can not be negative number")
+            if(value <= 0) {
+                throw new Error("Can not be negative or zero")
             }
         },
-        default: 0
+        default: 1
     },
 
     start_time: {
@@ -46,3 +46,4 @@ const bookingSchema = new Schema({
 const bookingModel = mongoose.model("bookingModel", bookingSchema);
 
 module.exports = bookingModel
+

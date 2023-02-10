@@ -11,11 +11,11 @@ const usersRouter = require("./backend/routes/users");
 const ticketRouter = require("./backend/routes/ticketRoutes")
 const cors = require('cors')
 
-const Port = process.env.PORT || 3035
+const Port = 5501
 
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 app.use('/',bookingRouter)
 app.use('/',facilityRouter)
 app.use('/',eventRouter)
@@ -26,7 +26,7 @@ app.use('/', postRoutes)
 // app.use("/client",clientsRouter)
 app.use("/user", usersRouter);
 app.use("/",ticketRouter)
-app.use(cors())
+
 
 mongoose.Promise = global.Promise
 

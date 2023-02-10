@@ -9,7 +9,7 @@ import { Calendar, dateFnsLocalizer, Navigate } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { moment } from "moment";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -70,65 +70,65 @@ const Bookings = () => {
 
   const bookingId = localStorage.getItem("bookingId");
 
-  const fetchData = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:3003/BookingPage/${bookingId}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-          method: "GET",
-          mode: "cors",
-        }
-      );
-      if (res.status != 200) {
-        {
-          setTimeout(() => {
-            Swal.fire({
-              title: "Time out",
-              text: "Booking Error ! Book Again",
-              icon: "error",
-              confirmButtonText: "ok",
-            });
-            navigate("BookingPage")("false");
-          }, 2000);
-        }
-      }
-      const resp = await res.json();
-      console.log(resp);
+  // const fetchData = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `http://localhost:3035/BookingPage/${bookingId}`,
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //         method: "GET",
+  //         mode: "cors",
+  //       }
+  //     );
+  //     if (res.status != 200) {
+  //       {
+  //         // setTimeout(() => {
+  //         //   Swal.fire({
+  //         //     title: "Time out",
+  //         //     text: "Booking Error ! Book Again",
+  //         //     icon: "error",
+  //         //     confirmButtonText: "ok",
+  //         //   });
+  //         //   navigate("BookingPage")("false");
+  //         // }, 2000);
+  //       }
+  //     }
+  //     const resp = await res.json();
+  //     console.log(resp);
 
-      const {
-        bookingNumber,
-        facility,
-        user,
-        booking_date,
-        amount_of_guests,
-        start_time,
-        end_time,
-      } = resp;
-      SetBookingNumber(bookingNumber);
-      SetUser(user);
-      setFacility(facility);
-      SetBookingDate(booking_date);
-      SetAmountOfGuests(amount_of_guests);
-      SetStartTime(start_time);
-      SetEndTime(end_time);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+  //     const {
+  //       bookingNumber,
+  //       facility,
+  //       user,
+  //       booking_date,
+  //       amount_of_guests,
+  //       start_time,
+  //       end_time,
+  //     } = resp;
+  //     SetBookingNumber(bookingNumber);
+  //     SetUser(user);
+  //     setFacility(facility);
+  //     SetBookingDate(booking_date);
+  //     SetAmountOfGuests(amount_of_guests);
+  //     SetStartTime(start_time);
+  //     SetEndTime(end_time);
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
 
-  const callback = useCallback(() => fetchData(), [bookingNumber]);
+  // const callback = useCallback(() => fetchData(), [bookingNumber]);
 
-  useEffect(() => {
-    callback();
-  }, [callback]);
+  // useEffect(() => {
+  //   callback();
+  // }, [callback]);
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
+    const bookingData = {
       bookingNumber,
       user,
       facility,
@@ -139,19 +139,17 @@ const Bookings = () => {
     };
 
     try {
-      const res = await fetch(
-        `http://localhost:3003/BookingPage/update/${bookingId}`,
-        {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-          body: JSON.stringify(userData),
-        }
-      );
+      const res = await fetch(`http://localhost:5001/booking/add`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "true",
+        },
+        mode: "cors",
+        body: JSON.stringify(bookingData),
+      });
       console.log(res);
-      if (res.status == 200) {
+      if (res.status === 200) {
         setResponse("true");
         {
           setTimeout(() => {
@@ -169,9 +167,9 @@ const Bookings = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
-          {response == "true" && (
+          {response === "true" && (
             <div className="bg-green-100 rounded-md p-3 flex">
               <svg
                 className="stroke-2 stroke-current text-green-600 h-8 w-8 mr-2 flex-shrink-0"
@@ -204,13 +202,13 @@ const Bookings = () => {
                 <div className="mt-2 sm:mt-0 sm:flex md:order-2">
                   <button
                     type="button"
-                    className="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
+                    className="rounded mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
                   >
                     Login
                   </button>
                   <button
                     type="button"
-                    className="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
+                    className="rounded mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
                   >
                     Register
                   </button>
@@ -426,11 +424,11 @@ const Bookings = () => {
                     class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                     id="facility"
                     value={facility}
-                    onChange={(e) => setFacility(e.target.value)}                  >
+                    onChange={(e) => setFacility(e.target.value)}
+                  >
                     {mockData.map((facilityOption, index) => (
                       <option key={index} value={facilityOption.name}>
                         {facilityOption.name}
-                        
                       </option>
                     ))}
                   </select>
@@ -449,6 +447,24 @@ const Bookings = () => {
                     value={booking_date}
                     onChange={(e) => SetBookingDate(e.target.value)}
                   ></input>
+                </div>
+                <div class="mb-5">
+                  <label
+                    for="guest"
+                    class="mb-3 block text-base font-medium text-[#07074D]"
+                  >
+                    Number of Guest?
+                  </label>
+                  <input
+                    type="number"
+                    name="amount_of_guests"
+                    id="amount_of_guests"
+                    value={amount_of_guests}
+                    onChange={(e) => SetAmountOfGuests(e.target.value)}
+                    placeholder="5"
+                    min="0"
+                    class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  />
                 </div>
                 <div class="mb-5">
                   <label
@@ -492,6 +508,7 @@ const Bookings = () => {
                     class="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
                     type="submit"
                     value="Submit"
+                    onClick={handleSubmit}
                   >
                     Book
                   </button>
