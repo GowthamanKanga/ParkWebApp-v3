@@ -10,7 +10,8 @@ import { set } from "date-fns";
 const mockData = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    image:
+      "https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     month: "Jan",
     date: "01",
     name: "New Year's Day Celebration",
@@ -22,7 +23,8 @@ const mockData = [
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
+    image:
+      "https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
     month: "Feb",
     date: "14",
     name: "Valentine's Day Concert",
@@ -34,7 +36,8 @@ const mockData = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+    image:
+      "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
     month: "Mar",
     date: "17",
     name: "St. Patrick's Day Parade",
@@ -46,7 +49,8 @@ const mockData = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1587691592099-24045742c181?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
+    image:
+      "https://images.unsplash.com/photo-1587691592099-24045742c181?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
     month: "Apr",
     date: "01",
     name: "April Fool's Day Comedy Show",
@@ -58,7 +62,8 @@ const mockData = [
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1517404215738-15263e9f9178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    image:
+      "https://images.unsplash.com/photo-1517404215738-15263e9f9178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     month: "May",
     date: "09",
     name: "Mother's Day Brunch",
@@ -79,11 +84,48 @@ function EventList() {
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
   const currentEvents = mockData.slice(indexOfFirstEvent, indexOfLastEvent);
   const totalPages = Math.ceil(mockData.length / eventsPerPage);
-  const [ticketForm, SetTicketForm] = useState("")
+  const [ticketForm, SetTicketForm] = useState("");
+  const [event, setEvent] = useState(" ");
+  const [response, setResponse] = useState("");
 
+  const eventId = localStorage.getItem("eventId");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const eventData = {
+      event,
+    };
+
+    try {
+      const res = await fetch(`http://localhost:5501/event/add`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "true",
+        },
+
+        mode: "cors",
+        body: JSON.stringify(eventData),
+      });
+      console.log(res);
+      if (res.status === 200) {
+        setResponse("true");
+        {
+          setTimeout(() => {
+            setResponse("false");
+          }, 1500);
+        }
+      }
+      console.log(res.formData);
+      // alert('Saved successfully.');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   const onClose = () => SetTicketForm(false);
-
 
   const handleViewButtonClick = (event) => {
     setSelectedEvent(event);
@@ -95,7 +137,6 @@ function EventList() {
   };
 
   return (
-
     <body className="bg-white">
       <EventTicket visible={ticketForm} Onclose={onClose} />
       <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
@@ -300,8 +341,8 @@ function EventList() {
               <div key={event.id}>
                 <div
                   className="w-full h-72 bg-top bg-cover rounded-t"
-                  style={{ backgroundImage: `url(${event.image})` }}>
-                </div>
+                  style={{ backgroundImage: `url(${event.image})` }}
+                ></div>
                 <div className="flex flex-col w-full md:flex-row">
                   <div className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
                     <div className="md:text-3xl">{event.month}</div>
@@ -315,6 +356,8 @@ function EventList() {
                     <button
                       className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
                       onClick={() => SetTicketForm(true)}
+                      value={event}
+                      onChange={(e) => setEvent(e.target.value)}
                     >
                       Tickets
                     </button>
@@ -326,7 +369,9 @@ function EventList() {
                     <div className="text-sm text-gray-800">
                       {event.startTime} - {event.endTime}
                     </div>
-                    <div className="text-sm text-gray-800">{event.location}</div>
+                    <div className="text-sm text-gray-800">
+                      {event.location}
+                    </div>
                     <div className="text-sm text-gray-800">
                       {event.description}
                     </div>
@@ -362,8 +407,7 @@ function EventList() {
       </div>
     </body>
   );
-};
-
+}
 
 const Modal = ({ onClose, children }) => {
   return (
@@ -395,6 +439,5 @@ const EventDetail = ({ event }) => {
     </div>
   );
 };
-
 
 export default EventList;

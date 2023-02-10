@@ -139,7 +139,7 @@ const Bookings = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5001/booking/add`, {
+      const res = await fetch(`http://localhost:5501/booking/add`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

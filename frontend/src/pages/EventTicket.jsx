@@ -169,45 +169,6 @@ export default function EventTicket({ visible, Onclose }) {
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
-
-              <div class="-mx-3 flex flex-wrap">
-                <div class="w-full px-3 sm:w-1/2">
-                  <div class="mb-5">
-                    <label
-                      for="event_date"
-                      class="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Date
-                    </label>
-                    <input
-                      type="date"
-                      name="event_date"
-                      id="event_date"
-                      value={event_date}
-                      onChange={(e) => setEvent_date(e.target.value)}
-                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
-                  </div>
-                </div>
-                <div class="w-full px-3 sm:w-1/2">
-                  <div class="mb-5">
-                    <label
-                      for="event_time"
-                      class="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Time
-                    </label>
-                    <input
-                      type="time"
-                      name="event_time"
-                      id="event_time"
-                      value={event_time}
-                      onChange={(e) => setEvent_time(e.target.value)}
-                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
-                  </div>
-                </div>
-              </div>
               <div className="flex justify-center">
                 <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none mr-4">
                   Submit
