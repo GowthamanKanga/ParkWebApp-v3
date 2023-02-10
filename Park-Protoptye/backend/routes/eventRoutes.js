@@ -24,7 +24,7 @@ route.post('/events', async(req, res) => {
 
 route.get('/events', async(req, res) => {
     try {
-        const events = await equipment.find({})
+        const events = await event.find({})
         res.status(200).send(events)
     }
     catch(error) {
