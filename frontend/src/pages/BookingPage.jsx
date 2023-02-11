@@ -45,6 +45,13 @@ const events = [
     start: new Date(2023, 1, 10, 1, 23, 43),
     end: new Date(2023, 1, 10, 3, 23, 43),
   },
+  {
+    title: "Booking 4",
+    name: "Yagnik",
+    facility: "Maze",
+    start: new Date(2023, 2, 12, 1, 23, 43),
+    end: new Date(2023, 1, 10, 3, 23, 43),
+  },
 ];
 
 const mockData = [
@@ -63,6 +70,8 @@ const Bookings = () => {
   const [start_time, SetStartTime] = useState("");
   const [end_time, SetEndTime] = useState("");
   const [response, setResponse] = useState("");
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     setFacility(event.target.value);
@@ -70,6 +79,37 @@ const Bookings = () => {
 
   const bookingId = localStorage.getItem("bookingId");
 
+  const validate = () => {
+    let newErrors = {};
+
+    if (!user) {
+      newErrors.user = "User name is required";
+    }
+
+    if (!booking_date) {
+      newErrors.booking_date = "Booking date is required";
+    }
+
+    if (!amount_of_guests) {
+      newErrors.amount_of_guests = "Amount of guests is required";
+    } else if (!/^[0-9]+$/.test(amount_of_guests)) {
+      newErrors.amount_of_guests = "Amount of guests must be a number";
+    }
+
+    if (!start_time) {
+      newErrors.start_time = "Start time is required";
+    }
+
+    if (!end_time) {
+      newErrors.end_time = "End time is required";
+    }
+
+    if (!facility) {
+      newErrors.facility = "Facility is required";
+    }
+
+    return newErrors;
+  };
   // const fetchData = async () => {
   //   try {
   //     const res = await fetch(
@@ -124,19 +164,24 @@ const Bookings = () => {
   // useEffect(() => {
   //   callback();
   // }, [callback]);
+  // const navigate = useNavigate();
 
-  const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const bookingData = {
-      bookingNumber,
-      user,
-      facility,
-      booking_date,
-      amount_of_guests,
-      start_time,
-      end_time,
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newErrors = validate();
+    setErrors(newErrors);
+    let bookingData;
+    if (Object.keys(newErrors).length === 0) {
+      bookingData = {
+        bookingNumber,
+        user,
+        facility,
+        booking_date,
+        amount_of_guests,
+        start_time,
+        end_time,
+      };
+    }
 
     try {
       const res = await fetch(`http://localhost:5501/booking/add`, {
@@ -149,19 +194,16 @@ const Bookings = () => {
         body: JSON.stringify(bookingData),
       });
       console.log(res);
-      if (res.status === 200) {
-        setResponse("true");
-        {
-          setTimeout(() => {
-            setResponse("false");
-          }, 1500);
-        }
+      if (!res.ok) {
+        throw new Error(`Status code error: ${res.status}`);
       }
-
-      console.log(res.formData);
-      // alert('Saved successfully.');
-    } catch (err) {
-      console.log(err.message);
+      setResponse("true");
+      setTimeout(() => {
+        setResponse("false");
+      }, 1500);
+    } catch (error) {
+      console.error(error);
+      setResponse("error");
     }
   };
 
@@ -263,7 +305,7 @@ const Bookings = () => {
 
             <div className="pt-32  bg-white">
               <h1 className="text-center text-2xl font-bold text-gray-800">
-                Facility List
+                Booking
               </h1>
             </div>
 
@@ -405,13 +447,18 @@ const Bookings = () => {
                     Username:{" "}
                   </label>
                   <input
-                    class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
-                    id="name"
                     type="text"
+                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    id="user"
+                    placeholder="Enter user name"
                     value={user}
                     onChange={(e) => SetUser(e.target.value)}
-                    placeholder="Name"
                   />
+                  {errors.user && (
+                    <small className="form-text text-danger">
+                      {errors.user}
+                    </small>
+                  )}
                 </div>
                 <div class="mb-5">
                   <label
@@ -421,7 +468,7 @@ const Bookings = () => {
                     Facility:{" "}
                   </label>
                   <select
-                    class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    class="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-800 outline-none focus:border-indigo-500 focus:shadow-md"
                     id="facility"
                     value={facility}
                     onChange={(e) => setFacility(e.target.value)}
@@ -432,6 +479,11 @@ const Bookings = () => {
                       </option>
                     ))}
                   </select>
+                  {errors.facility && (
+                    <small className="form-text text-danger">
+                      {errors.facility}
+                    </small>
+                  )}
                 </div>
                 <div class="mb-5">
                   <label
@@ -441,12 +493,17 @@ const Bookings = () => {
                     Date:{" "}
                   </label>
                   <input
-                    class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
-                    id="date"
                     type="date"
+                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    id="booking_date"
                     value={booking_date}
                     onChange={(e) => SetBookingDate(e.target.value)}
-                  ></input>
+                  />
+                  {errors.booking_date && (
+                    <small className="form-text text-danger">
+                      {errors.booking_date}
+                    </small>
+                  )}
                 </div>
                 <div class="mb-5">
                   <label
@@ -456,15 +513,18 @@ const Bookings = () => {
                     Number of Guest?
                   </label>
                   <input
-                    type="number"
-                    name="amount_of_guests"
+                    type="text"
+                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                     id="amount_of_guests"
+                    placeholder="Enter amount of guests"
                     value={amount_of_guests}
                     onChange={(e) => SetAmountOfGuests(e.target.value)}
-                    placeholder="5"
-                    min="0"
-                    class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   />
+                  {errors.amount_of_guests && (
+                    <small className="form-text text-danger">
+                      {errors.amount_of_guests}
+                    </small>
+                  )}
                 </div>
                 <div class="mb-5">
                   <label
@@ -474,12 +534,17 @@ const Bookings = () => {
                     Start Time:{" "}
                   </label>
                   <input
-                    class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
-                    id="time"
                     type="time"
+                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    id="start_time"
                     value={start_time}
                     onChange={(e) => SetStartTime(e.target.value)}
-                  ></input>
+                  />
+                  {errors.start_time && (
+                    <small className="form-text text-danger">
+                      {errors.start_time}
+                    </small>
+                  )}
                 </div>
                 <div class="mb-5">
                   <label
@@ -489,12 +554,17 @@ const Bookings = () => {
                     End Time:{" "}
                   </label>
                   <input
-                    class="w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
-                    id="time"
                     type="time"
+                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    id="end_time"
                     value={end_time}
                     onChange={(e) => SetEndTime(e.target.value)}
-                  ></input>
+                  />
+                  {errors.end_time && (
+                    <small className="form-text text-danger">
+                      {errors.end_time}
+                    </small>
+                  )}
                 </div>
                 <div class="flex max-w-[200px] mx-auto justify-between">
                   <button
