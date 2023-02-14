@@ -7,6 +7,7 @@ const Booking = require("../models/booking");
 route.post('/booking/add', async(req, res) => {
 
     const newBooking = req.body;
+    console.log(newBooking)
     if(JSON.stringify(newBooking) == null || JSON.stringify(newBooking) == '{}') {
         return res.status(400).send({
             message: "Booking content can not be empty"
@@ -21,6 +22,7 @@ route.post('/booking/add', async(req, res) => {
     }
     catch(error) {
         res.status(500).send(error)
+        console.log(error)
     }
 }
 });

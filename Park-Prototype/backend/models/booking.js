@@ -6,14 +6,11 @@ const bookingSchema = new Schema({
 
     bookingNumber: String,
     facilities: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'facilityModel',
-        required: true
+        type: String,
     }],
 
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
 
@@ -33,12 +30,12 @@ const bookingSchema = new Schema({
     start_time: {
         type: String,
         required: true,
-        unique: true
+        // unique: true
     },
     end_time: {
         type: String,
         required: true,
-        unique: true
+        // unique: true
     }
 
 })
