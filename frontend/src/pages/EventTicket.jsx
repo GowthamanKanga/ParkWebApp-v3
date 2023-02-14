@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import Swal from "sweetalert2";
 
 export default function EventTicket({ visible, Onclose }) {
   const [response, setResponse] = useState("");
@@ -28,49 +27,79 @@ export default function EventTicket({ visible, Onclose }) {
     return newErrors;
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const newErrors = validate();
-    setErrors(newErrors);
-    let userData;
-    if (Object.keys(newErrors).length === 0) {
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
       setIsSubmitting(true);
-      userData = {
-        first_name,
-        last_name,
-        number_OfTicket,
-      };
-      setIsSubmitting(false);
-    }
+      const newErrors = validate();
+      setErrors(newErrors);
 
-    try {
-      const res = await fetch(`http://localhost:5501/tickets/add`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "true",
-        },
-        mode: "cors",
-        body: JSON.stringify(userData),
-      });
-      console.log(res);
-      if (!res.ok) {
-        throw new Error(`Status code error: ${res.status}`);
+      if (Object.keys(newErrors).length === 0) {
+        try {
+          const response = await fetch("http://localhost:5501/tickets/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              first_name,
+              last_name,
+              number_OfTicket,
+            }),
+          });
+          console.log(response);
+
+          if (response.status == 201) {
+            setResponse("true");
+            {
+              setTimeout(() => {
+                setResponse("false");
+              }, 1500);
+            }
+          }
+
+          const result = await response.json();
+          console.log(result);
+          // setResponse(result);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsSubmitting(false);
+        }
+      } else {
+        setIsSubmitting(false);
       }
-      setResponse("true");
-      setTimeout(() => {
-        setResponse("false");
-      }, 1500);
-    } catch (error) {
-      console.error(error);
-      setResponse("error");
-    }
-  };
+    },
+    [first_name,last_name,number_OfTicket]
+  );
+
+
+  const navigate = useNavigate();
 
   if (!visible) return null;
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {response == "true" && (
+        <div className="flex rounded-md bg-green-100 p-3">
+          <svg
+            className="mr-2 h-8 w-8 flex-shrink-0 stroke-current stroke-2 text-green-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+          <div className="text-green-700">
+            <div className="text-xl font-bold">
+              Your Event Ticket has been saved
+            </div>
+          </div>
+        </div>
+      )}
+      <form>
         <div className="fixed inset-0   bg-300 backdrop-blur-sm flex items-center justify-center">
           <div class="flex items-center justify-center p-12">
             <div class="mx-auto w-full max-w-[550px] p-10 bg-white rounded">
