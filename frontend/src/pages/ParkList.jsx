@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const parks = [
-  { name: "High Park", location: "Toronto, ON", id: 1 },
+  { name: "Toronto Island Park", location: "Toronto, ON", id: 1 },
   { name: "Trinity Bellwoods Park", location: "Toronto, ON", id: 2 },
   { name: "Riverdale Park", location: "Toronto, ON", id: 3 },
   { name: "Guild Park and Gardens", location: "Toronto, ON", id: 4 },
@@ -135,10 +135,10 @@ function ParkList(props) {
             >
               <h3 className="text-gray-600 font-medium">{park.name}</h3>
               <p className="text-gray-500 text-xs">{park.location}</p>
-              <a href='/ParkInfo'>
-              <button className="float-right bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-none">
-                View
-              </button>
+              <a href="/ParkInfo">
+                <button className="float-right bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-none">
+                  View
+                </button>
               </a>
             </div>
           ))}
@@ -159,6 +159,14 @@ function ParkList(props) {
           </ul>
         </div>
       </div>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+        <p>
+          &copy; Copyright 2022, All Rights Reserved by George Brown Company
+        </p>
+        <p>General Information</p>
+        <p>Phone:(807)938-6534</p>
+        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </footer>
     </div>
   );
 }

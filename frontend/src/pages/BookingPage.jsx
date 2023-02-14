@@ -73,12 +73,6 @@ const Bookings = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (event) => {
-    setFacility(event.target.value);
-  };
-
-  const bookingId = localStorage.getItem("bookingId");
-
   const validate = () => {
     let newErrors = {};
 
@@ -110,335 +104,286 @@ const Bookings = () => {
 
     return newErrors;
   };
-  // const fetchData = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `http://localhost:3035/BookingPage/${bookingId}`,
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("token"),
-  //         },
-  //         method: "GET",
-  //         mode: "cors",
-  //       }
-  //     );
-  //     if (res.status != 200) {
-  //       {
-  //         // setTimeout(() => {
-  //         //   Swal.fire({
-  //         //     title: "Time out",
-  //         //     text: "Booking Error ! Book Again",
-  //         //     icon: "error",
-  //         //     confirmButtonText: "ok",
-  //         //   });
-  //         //   navigate("BookingPage")("false");
-  //         // }, 2000);
-  //       }
-  //     }
-  //     const resp = await res.json();
-  //     console.log(resp);
 
-  //     const {
-  //       bookingNumber,
-  //       facility,
-  //       user,
-  //       booking_date,
-  //       amount_of_guests,
-  //       start_time,
-  //       end_time,
-  //     } = resp;
-  //     SetBookingNumber(bookingNumber);
-  //     SetUser(user);
-  //     setFacility(facility);
-  //     SetBookingDate(booking_date);
-  //     SetAmountOfGuests(amount_of_guests);
-  //     SetStartTime(start_time);
-  //     SetEndTime(end_time);
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      const newErrors = validate();
+      setErrors(newErrors);
 
-  // const callback = useCallback(() => fetchData(), [bookingNumber]);
+      if (Object.keys(newErrors).length === 0) {
+        try {
+          const response = await fetch("http://localhost:5501/booking/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user,
+              facility,
+              booking_date,
+              amount_of_guests,
+              start_time,
+              end_time,
+            }),
+          });
+          console.log(response);
 
-  // useEffect(() => {
-  //   callback();
-  // }, [callback]);
-  // const navigate = useNavigate();
+          if (response.status == 201) {
+            setResponse("true");
+            {
+              setTimeout(() => {
+                setResponse("false");
+              }, 1500);
+            }
+          }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const newErrors = validate();
-    setErrors(newErrors);
-    let bookingData;
-    if (Object.keys(newErrors).length === 0) {
-      bookingData = {
-        bookingNumber,
-        user,
-        facility,
-        booking_date,
-        amount_of_guests,
-        start_time,
-        end_time,
-      };
-    }
-
-    try {
-      const res = await fetch(`http://localhost:5501/booking/add`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "true",
-        },
-        mode: "cors",
-        body: JSON.stringify(bookingData),
-      });
-      console.log(res);
-      if (!res.ok) {
-        throw new Error(`Status code error: ${res.status}`);
+          const result = await response.json();
+          console.log(result);
+          // setResponse(result);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsSubmitting(false);
+        }
+      } else {
+        setIsSubmitting(false);
       }
-      setResponse("true");
-      setTimeout(() => {
-        setResponse("false");
-      }, 1500);
-    } catch (error) {
-      console.error(error);
-      setResponse("error");
-    }
-  };
+    },
+    [user, facility, booking_date, amount_of_guests, start_time, end_time]
+  );
+
+  const navigate = useNavigate();
 
   return (
     <div>
-      <form>
-        <div>
-          {response === "true" && (
-            <div className="bg-green-100 rounded-md p-3 flex">
-              <svg
-                className="stroke-2 stroke-current text-green-600 h-8 w-8 mr-2 flex-shrink-0"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M0 0h24v24H0z" stroke="none" />
-                <circle cx="12" cy="12" r="9" />
-                <path d="M9 12l2 2 4-4" />
-              </svg>
-              <div className="text-green-700">
-                <div className="font-bold text-xl">
-                  Your Booking has been confirmed!
-                </div>
-              </div>
+      {response == "true" && (
+        <div className="flex rounded-md bg-green-100 p-3">
+          <svg
+            className="mr-2 h-8 w-8 flex-shrink-0 stroke-current stroke-2 text-green-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M0 0h24v24H0z" stroke="none" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+          <div className="text-green-700">
+            <div className="text-xl font-bold">
+              Your Booking has been saved
             </div>
-          )}
+          </div>
         </div>
+      )}
+      <form>
+      <body className="bg-white">
+        <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+          <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
+            <a href="/Home" className="flex items-center">
+              <span className="self-center whitespace-nowrap text-xl font-semibold">
+                GBC Park & Recreation
+              </span>
+            </a>
+            <div className="mt-2 sm:mt-0 sm:flex md:order-2">
+              <button
+                type="button"
+                className="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                className="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
+              >
+                Register
+              </button>
+              <button
+                data-collapse-toggle="navbar-sticky"
+                type="button"
+                className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
+                aria-controls="navbar-sticky"
+                aria-expanded="false"
+              >
+                <svg
+                  className="h-6 w-6"
+                  aria-hidden="true"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div
+              className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+              id="navbar-sticky"
+            >
+              <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium">
+                <li>
+                  <a
+                    href="/Home"
+                    className="block rounded bg-blue-700 py-2 pl-3 pr-4 text-white md:bg-transparent md:p-0 md:text-blue-700"
+                    aria-current="page"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/ParkList"
+                    className="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
+                  >
+                    Park List
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div className="pt-32  bg-white">
+          <h1 className="text-center text-2xl font-bold text-gray-800">
+          </h1>
+        </div>
+
+        <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
+          <a
+            rel="noopener noreferrer"
+            href="/ParkInfo"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2text-gray-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Park Info</span>
+          </a>
+          <a
+            rel="noopener noreferrer"
+            href="/FacilityList"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 rounded-t-lg text-gray-900"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span>Facilities</span>
+          </a>
+          <a
+            rel="noopener noreferrer"
+            href="/BookingPage"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span>Booking</span>
+          </a>
+          <a
+            rel="noopener noreferrer"
+            href="/EventList"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+            <a>Event</a>
+          </a>
+          <a
+            rel="noopener noreferrer"
+            href="/ChatForum"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+            <span>Chat Forum</span>
+          </a>
+          <a
+            rel="noopener noreferrer"
+            href="/ParkMap"
+            className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+            <span>Map</span>
+          </a>
+        </div>
+      </body>
         <div>
-          <body className="bg-white">
-            <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
-              <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
-                <a href="/Home" className="flex items-center">
-                  <span className="self-center whitespace-nowrap text-xl font-semibold">
-                    GBC Park & Recreation
-                  </span>
-                </a>
-                <div className="mt-2 sm:mt-0 sm:flex md:order-2">
-                  <button
-                    type="button"
-                    className="rounded mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
-                  >
-                    Login
-                  </button>
-                  <button
-                    type="button"
-                    className="rounded mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg"
-                  >
-                    Register
-                  </button>
-                  <button
-                    data-collapse-toggle="navbar-sticky"
-                    type="button"
-                    className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
-                    aria-controls="navbar-sticky"
-                    aria-expanded="false"
-                  >
-                    <svg
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-                <div
-                  className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
-                  id="navbar-sticky"
-                >
-                  <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium">
-                    <li>
-                      <a
-                        href="/Home"
-                        className="block rounded bg-blue-700 py-2 pl-3 pr-4 text-white md:bg-transparent md:p-0 md:text-blue-700"
-                        aria-current="page"
-                      >
-                        Home
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/ParkList"
-                        className="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
-                      >
-                        Park List
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-
-            <div className="pt-32  bg-white">
-              <h1 className="text-center text-2xl font-bold text-gray-800">
-                Booking
-              </h1>
-            </div>
-
-            <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
-              <a
-                rel="noopener noreferrer"
-                href="/ParkInfo"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>Park Info</span>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="/FacilityList"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 rounded-t-lg text-gray-900"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-                <span>Facilities</span>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="/Booking"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                </svg>
-                <span>Booking</span>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="EventList"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <a>Event</a>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="/ChatForum"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <span>Chat Forum</span>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="/ParkMap"
-                className="flex items-center flex-shrink-0 px-5 py-3 space-x-2  text-gray-600"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="w-4 h-4"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <span>Map</span>
-              </a>
-            </div>
-          </body>
-
-          <div class="flex py-16 justify-center">
+          <div class="flex py-16 bg-gray-100 justify-center">
             <div class="mx-auto w-full max-w-[450px] shadow-md px-12 py-12 bg-white rounded-2xl">
               <div>
                 <h1 class="text-gray-800 text-3xl font-bold text-center mb-4">
                   Book a Facility
                 </h1>
               </div>
-              <form onsubmit="Submit();">
+              <form onSubmit="Submit();">
                 <div class="mb-5">
                   <label
                     class="mb-3 block text-base font-medium text-gray-800"
@@ -565,29 +510,29 @@ const Bookings = () => {
                       {errors.end_time}
                     </small>
                   )}
-                </div>
-                <div class="flex max-w-[200px] mx-auto justify-between">
-                  <button
-                    class="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
-                    type="reset"
-                    value="Reset"
-                  >
-                    Clear
-                  </button>
-                  <button
-                    class="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
-                    type="submit"
-                    value="Submit"
-                    onClick={handleSubmit}
-                  >
-                    Book
-                  </button>
+                  <div class="flex max-w-[200px] mx-auto justify-between">
+                    <button
+                      class="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+                      type="reset"
+                      value="Reset"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      class="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+                      type="button"
+                      value="Submit"
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                    >
+                      Book
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
           </div>
-        </div>
-        <div>
+          <div className="flex py-16 bg-gray-100 justify-center">
           <Calendar
             localizer={localizer}
             events={events}
@@ -596,7 +541,26 @@ const Bookings = () => {
             style={{ height: 500, margin: "100px" }}
           />
         </div>
+        </div>
+        {/* <div>
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500, margin: "100px" }}
+          />
+        </div> */}
       </form>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+              <p>
+                &copy; Copyright 2022, All Rights Reserved by George Brown
+                Company
+              </p>
+              <p>General Information</p>
+              <p>Phone:(807)938-6534</p>
+              <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+            </footer>
     </div>
   );
 };

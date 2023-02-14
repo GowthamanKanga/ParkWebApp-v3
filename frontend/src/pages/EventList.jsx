@@ -405,6 +405,12 @@ function EventList() {
           </Modal>
         )}
       </div>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+  <p>&copy; Copyright 2022, All Rights Reserved by George Brown Company</p>
+  <p>General Information</p>
+  <p>Phone:(807)938-6534</p>
+  <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+</footer>
     </body>
   );
 }
