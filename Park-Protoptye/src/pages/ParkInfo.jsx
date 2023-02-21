@@ -4,7 +4,7 @@ import centreIslandPier from "../images/centre-island-pier.png";
 const Main = () => {
   return (
     <>
-        <body className="bg-white">
+      <body className="bg-white">
         <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
           <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
             <a href="/Home" className="flex items-center">
@@ -76,7 +76,6 @@ const Main = () => {
 
         <div className="pt-32  bg-white">
           <h1 className="text-center text-2xl font-bold text-gray-800">
-            Park Main Page
           </h1>
         </div>
 
@@ -226,35 +225,80 @@ const Main = () => {
                 in the evening. Whether you're a local or just visiting, Toronto
                 Island Park is definitely worth checking out.
               </p>
+              <h3 className="text-xl font-bold mb-5 mt-10">
+                Events & Programs
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed mb-10">
+                The Toronto Islands host a variety of events and programs
+                throughout the year, including festivals, concerts, and outdoor
+                movies. There are also nature programs and walks available,
+                allowing visitors to learn more about the island's diverse
+                ecosystem. If you're looking for something to do, be sure to
+                check out the calendar of events on the park's website for more
+                information.
+              </p>
             </div>
           </div>
-          <div className="w-full md:w-1/2 p-10">
-            <div className="bg-white p-10 rounded-lg shadow-lg">
-              <h2 className="text-3xl font-bold mb-5">Contact Information</h2>
-              <p className="text-gray-600 text-lg mb-3">
+          <div className="w-full md:w-1/2 p-5">
+            <div className="bg-white p-5 rounded-lg shadow-lg">
+              <h2 className="text-xl font-bold mb-3">Park Information</h2>
+              <p className="text-gray-600 text-md mb-2">
                 First/Lost Children/Lost Parent
               </p>
-              <p className="text-gray-600 text-lg mb-3">
+              <p className="text-gray-600 text-md mb-2">
                 Station Lost and Found
               </p>
-              <p className="text-gray-600 text-lg mb-3">Centre Island</p>
-              <p className="text-gray-600 text-lg mb-3">Near the ferry dock</p>
-              <p className="text-gray-600 text-lg mb-3">May to September</p>
-              <p className="text-gray-600 text-lg mb-10">10:30 am to 5:30 pm</p>
-              <p className="text-gray-600 text-lg mb-10">
-                Some wheelchairs are available to use for free on a first come,
-                first served basis. Government-issued ID is required.
+              <p className="text-gray-600 text-md mb-2">Centre Island</p>
+              <p className="text-gray-600 text-md mb-2">Near the ferry dock</p>
+              <p className="text-gray-600 text-md mb-2">May to September</p>
+              <h3 className="text-lg font-bold mb-2">Operating Hours</h3>
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="text-left p-2">Day</th>
+                    <th className="text-left p-2">Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="text-left p-2">Monday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Tuesday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Wednesday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Thursday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Friday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Saturday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                  <tr>
+                    <td className="text-left p-2">Sunday</td>
+                    <td className="text-left p-2">10:30 am to 5:30 pm</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p className="text-gray-600 text-md mb-5 mt-3">
+                Some wheelchairs are available to use .
               </p>
             </div>
           </div>
         </div>
         <div className="flex flex-wrap">
           <div className="w-full p-10">
-            <div
-              className="bg-
-
-white p-10 rounded-lg shadow-lg"
-            >
+            <div className="bg-white p-10 rounded-lg shadow-lg">
               <h2 className="text-3xl font-bold mb-5">Location</h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
                 Toronto Island Park is located in Toronto, Ontario, Canada. It
@@ -267,6 +311,14 @@ white p-10 rounded-lg shadow-lg"
           </div>
         </div>
       </div>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+        <p>
+          &copy; Copyright 2022, All Rights Reserved by George Brown Company
+        </p>
+        <p>General Information</p>
+        <p>Phone:(807)938-6534</p>
+        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </footer>
     </>
   );
 };

@@ -34,7 +34,7 @@ function ChatForum() {
   useEffect(() => {
     setPosts(mockData);
 
-    const socket = socketIOClient("http://localhost:3000");
+    const socket = socketIOClient("http://localhost:5501");
     socket.on("new-post", (post) => {
       setPosts([...posts, post]);
     });
@@ -57,7 +57,7 @@ function ChatForum() {
     setPosts([...posts, post]);
     setMessage("");
 
-    const socket = socketIOClient("http://localhost:3000");
+    const socket = socketIOClient("http://localhost:5501");
     socket.emit("new-post", post);
   };
 
@@ -75,6 +75,7 @@ function ChatForum() {
   );
 
   return (
+    <>
     <div>
       <body className="bg-white">
         <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
@@ -148,7 +149,6 @@ function ChatForum() {
 
         <div className="pt-32  bg-white">
           <h1 className="text-center text-2xl font-bold text-gray-800">
-            Facility List
           </h1>
         </div>
 
@@ -273,13 +273,13 @@ function ChatForum() {
           </a>
         </div>
       </body>
-      <div className="flex justify-center h-screen">
-        <div className="w-1/2">
+      <div className="flex bg-gray-100 justify-center h-screen">
+        <div className="w-1/2 bg-white rounded-lg shadow-lg p-8">
           <div className="mb-4">
             <input
               type="text"
               placeholder="Search posts..."
-              className="w-full p-2 border border-gray-400"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -291,9 +291,15 @@ function ChatForum() {
                 className="border border-gray-400 rounded p-4 mb-4"
               >
                 <div className="flex">
-                  <img src={post.image} alt="User avatar" />
+                  <img
+                    src={post.image}
+                    alt="User avatar"
+                    className="h-10 w-10 rounded-full"
+                  />
                   <div className="ml-4">
-                    <h3 className="text-lg">{post.title}</h3>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      {post.title}
+                    </h3>
                     <p className="text-gray-600">{post.description}</p>
                     <p className="text-gray-600">
                       by {post.username} on {post.date}
@@ -305,14 +311,14 @@ function ChatForum() {
           </main>
           <div className="flex justify-between mt-4">
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded"
+              className="bg-blue-500 text-white py-2 px-4 rounded disabled:opacity-50"
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 0}
             >
               Prev
             </button>
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded"
+              className="bg-blue-500 text-white py-2 px-4 rounded disabled:opacity-50"
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={currentPage + 1 === pageCount}
             >
@@ -320,22 +326,31 @@ function ChatForum() {
             </button>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+            <div className="mt-8">
               <input
                 type="text"
                 placeholder="Add a new post..."
-                className="w-full p-2 border border-gray-400"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
             </div>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded">
+            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
               Add post
             </button>
           </form>
         </div>
       </div>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+        <p>
+          &copy; Copyright 2022, All Rights Reserved by George Brown Company
+        </p>
+        <p>General Information</p>
+        <p>Phone:(807)938-6534</p>
+        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </footer>
     </div>
+    </>
   );
 }
 

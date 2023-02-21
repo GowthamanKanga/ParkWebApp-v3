@@ -23,13 +23,6 @@ const mockData = [
     image: "https://via.placeholder.com/150",
     description: "A regulation-size basketball court with adjustable hoops.",
   },
-  {
-    id: 4,
-    name: "Soccer Court",
-    location: "Area 4",
-    image: "https://via.placeholder.com/150",
-    description: "A regulation-size basketball court with adjustable hoops.",
-  },
 ];
 
 function FacilityList() {
@@ -117,9 +110,7 @@ function FacilityList() {
         </nav>
 
         <div className="pt-32  bg-white">
-          <h1 className="text-center text-2xl font-bold text-gray-800">
-            Facility List
-          </h1>
+          <h1 className="text-center text-2xl font-bold text-gray-800"></h1>
         </div>
 
         <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
@@ -273,14 +264,14 @@ function FacilityList() {
                                 View
                               </button>
                             </div>
-                            <div className="flex items-center rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+                            {/* <div className="flex items-center rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
                               <button
                                 onClick={() => SetBookingPage(true)}
                                 className="text-sm mx-2"
                               >
                                 Booking
                               </button>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -289,6 +280,15 @@ function FacilityList() {
                 })}
               </div>
             </div>
+            <footer className="bg-gray-900 p-10 text-white text-center">
+              <p>
+                &copy; Copyright 2022, All Rights Reserved by George Brown
+                Company
+              </p>
+              <p>General Information</p>
+              <p>Phone:(807)938-6534</p>
+              <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+            </footer>
           </div>
 
           {showModal && (

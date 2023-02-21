@@ -1,6 +1,5 @@
 import React from "react";
-import lake from "../images/lake.png";
-
+import centreIslandPier from "../images/centre-island-pier.png";
 
 function Home() {
   return (
@@ -75,9 +74,9 @@ function Home() {
               </div>
             </div>
           </nav>
-          {/* <img src={lake} alt="Lake" className="w-64 h-64 mb-5" /> */}
-          <div className="w-200 h-64 p-20">
+          <div className="w-100 h-70">
             <h2 className="text-3xl font-bold text-center">About Us</h2>
+            
             <p className="mb-5 text-lg text-center text-gray-600">
               The Park & Recreation web app is a one-stop-shop for individuals
               who are looking for information on local parks and recreation
@@ -119,6 +118,14 @@ function Home() {
             </p>
           </div>
         </div>
+        <footer className="bg-gray-900 p-10 text-white text-center">
+        <p>
+          &copy; Copyright 2022, All Rights Reserved by George Brown Company
+        </p>
+        <p>General Information</p>
+        <p>Phone:(807)938-6534</p>
+        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </footer>
       </body>
     </div>
   );
