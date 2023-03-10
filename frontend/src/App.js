@@ -8,6 +8,7 @@ import BookingPage from "./pages/BookingPage";
 import ChatForum from "./pages/ChatForum";
 import ParkInfo from "./pages/ParkInfo"
 import DeniedForm from "./pages/DeniedForm"
+import EditHome from "./clientPages/EditHome"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/ChatForum" element={<ChatForum />} />
           <Route path="/BookingPage" element={<BookingPage/>} />
           <Route path="/DeniedForm" element={<DeniedForm/>} />
+          <Route path="/EditHome" element={<EditHome/>} />
         </Routes>
       </Router>
     </>
