@@ -75,48 +75,49 @@ function Home() {
             </div>
           </nav>
           <div className="w-100 h-70">
-            <h2 className="text-3xl font-bold text-center">About Us</h2>
-            
-            <p className="mb-5 text-lg text-center text-gray-600">
-              The Park & Recreation web app is a one-stop-shop for individuals
-              who are looking for information on local parks and recreation
-              facilities. It provides a user-friendly interface that allows
-              individuals to quickly and efficiently access the information they
-              need, such as the location of the park, amenities available, and
-              upcoming events. This makes it easier for people to plan their
-              visits and make the most of their leisure time.
-            </p>
-            <p className="mb-5 text-lg text-center text-gray-800">
-              In addition to helping the general public, the Park & Recreation
-              web app also has a secondary goal of assisting park owners. Many
-              parks or recreation facilities may not have a platform for
-              providing information about their facilities, and our web
-              application aims to fill that gap. Park owners can use our
-              platform to edit or add information about their parks, making it
-              easier for people to find the information they need and ultimately
-              visit the park.
-            </p>
-            <p className="text-lg text-center text-gray-800">
-              The Park & Recreation web app is constantly evolving and improving
-              to better serve the needs of both park owners and the public. The
-              web application includes tools for park owners to update
-              information about their parks, and for users to provide feedback
-              and ratings on parks and recreation facilities they have visited.
-              This allows the company to gather valuable insights and identify
-              areas for improvement, leading to a better user experience.
-            </p>
-            <p className="text-lg text-center text-gray-800">
-              In conclusion, the Park & Recreation web app is a valuable
-              resource for individuals looking for information on local parks
-              and recreation facilities, and for park owners who want to provide
-              information about their facilities to the public. The platform is
-              user-friendly, constantly evolving, and designed to make it easier
-              for people to find the information they need and to plan their
-              visits to the park. By providing this information, the company
-              hopes to enhance the public's experience with their local parks
-              and recreation facilities.
-            </p>
-          </div>
+        <h2 className="text-4xl font-bold text-center mb-10">About Us</h2>
+        
+        <p className="mb-10 text-xl text-center text-gray-600">
+          The Park & Recreation web app is a one-stop-shop for individuals
+          who are looking for information on local parks and recreation
+          facilities. It provides a user-friendly interface that allows
+          individuals to quickly and efficiently access the information they
+          need, such as the location of the park, amenities available, and
+          upcoming events. This makes it easier for people to plan their
+          visits and make the most of their leisure time.
+        </p>
+        <p className="mb-10 text-xl text-center text-gray-800">
+          In addition to helping the general public, the Park & Recreation
+          web app also has a secondary goal of assisting park owners. Many
+          parks or recreation facilities may not have a platform for
+          providing information about their facilities, and our web
+          application aims to fill that gap. Park owners can use our
+          platform to edit or add information about their parks, making it
+          easier for people to find the information they need and ultimately
+          visit the park.
+        </p>
+        <p className="mb-10 text-xl text-center text-gray-800">
+          The Park & Recreation web app is constantly evolving and improving
+          to better serve the needs of both park owners and the public. The
+          web application includes tools for park owners to update
+          information about their parks, and for users to provide feedback
+          and ratings on parks and recreation facilities they have visited.
+          This allows the company to gather valuable insights and identify
+          areas for improvement, leading to a better user experience.
+        </p>
+        <p className="text-xl text-center text-gray-800">
+          In conclusion, the Park & Recreation web app is a valuable
+          resource for individuals looking for information on local parks
+          and recreation facilities, and for park owners who want to provide
+          information about their facilities to the public. The platform is
+          user-friendly, constantly evolving, and designed to make it easier
+          for people to find the information they need and to plan their
+          visits to the park. By providing this information, the company
+          hopes to enhance the public's experience with their local parks
+          and recreation facilities.
+        </p>
+      </div>
+
         </div>
         <footer className="bg-gray-900 p-10 text-white text-center">
         <p>
