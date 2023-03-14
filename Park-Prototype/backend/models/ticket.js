@@ -30,7 +30,17 @@ const ticketSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    number_OfTicket: {
+    totalOfTickets: {
+        type: Number,
+        required: true,
+
+        validate(value) {
+            if(value < 0) {
+                throw new Error("Ticket amount can not be negative")
+            }
+        }
+    },
+    purchasedTickets: {
         type: Number,
         required: true,
 
@@ -41,6 +51,9 @@ const ticketSchema = new mongoose.Schema({
         }
     }
 
+})
+ticketSchema.virtual("availableTickets").get(function() {
+    return this.totalOfTickets - this.purchasedTickets;
 })
 
 const TicketModel = mongoose.model("TicketModel",ticketSchema)
