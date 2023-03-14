@@ -6,10 +6,10 @@ const ticketSchema = new mongoose.Schema({
         required: true
     },
     event: {
-        type: String,
-        required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'eventModel',
+    required: true
     },
-
     price: {
         type: Number,
         required: true,
