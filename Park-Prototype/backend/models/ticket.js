@@ -35,7 +35,7 @@ const ticketSchema = new mongoose.Schema({
         required: true,
 
         validate(value) {
-            if(value < 0) {
+            if(value <= 0) {
                 throw new Error("Ticket amount can not be negative")
             }
         }
@@ -45,7 +45,7 @@ const ticketSchema = new mongoose.Schema({
         required: true,
 
         validate(value) {
-            if(value < 0) {
+            if(value <= 0) {
                 throw new Error("Ticket amount can not be negative")
             }
         }
