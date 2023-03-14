@@ -6,7 +6,7 @@ const bookingSchema = new Schema({
 
     bookingNumber: String,
     facilities: [{
-        type: String,
+        type: String
     }],
 
     user: {
