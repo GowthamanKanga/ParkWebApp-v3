@@ -1,8 +1,9 @@
 const express = require('express')
 const Ticket = require('../models/ticket')
+const { verifytoken } = require('./func')
 const router = new express.Router()
 
-router.post('/tickets/add',  async(req, res) => {
+router.post('/tickets/add', verifytoken,  async(req, res) => {
     const newTicket = req.body
     console.log(newTicket)
     if(JSON.stringify(newTicket) ==  null || JSON.stringify(newTicket) == '{}') {
@@ -23,7 +24,7 @@ router.post('/tickets/add',  async(req, res) => {
     }
 })
 
-router.post('/tickets', async (req, res) => {
+router.post('/tickets', verifytoken, async (req, res) => {
     const ticket = new Ticket(req.body)
 
     try {
@@ -43,7 +44,7 @@ router.get('/tickets', async (req, res) => {
     }
 })
 
-router.get('/tickets/:id', async (req, res) => {
+router.get('/tickets/:id', verifytoken, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -59,7 +60,7 @@ router.get('/tickets/:id', async (req, res) => {
     }
 })
 
-router.patch('/tickets/:id', async (req, res) => {
+router.patch('/tickets/:id', verifytoken, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['purchase_date', 'number_OfTicket']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
@@ -81,7 +82,7 @@ router.patch('/tickets/:id', async (req, res) => {
     }
 })
 
-router.delete('/tickets/:id', async (req, res) => {
+router.delete('/tickets/:id', verifytoken, async (req, res) => {
     try {
         const ticket = await Ticket.findByIdAndDelete(req.params.id)
 

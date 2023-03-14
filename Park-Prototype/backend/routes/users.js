@@ -9,18 +9,18 @@ const {verifytoken} = require("./func")
 User = User.getModel
 
 // view User 
-router.route('/').get((req,res)=>{
-    User.find()
+router.route('/').get(async(req,res)=>{
+    await User.find()
     .then(Users => res.status(200).json(Users))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
-router.route('/add').post((req,res)=>{
+router.route('/add').post(async(req,res)=>{
  const usr = req.body
   const newUser= new  User(usr)
 
-newUser.save()
+await newUser.save()
   .then(() => res.json('User added!'))
   .catch(error => 
    { const errors = handleErrors(error);
@@ -28,12 +28,12 @@ newUser.save()
 });
    
 
-router.get('/:id', verifytoken, (req,res)=>{
+router.get('/:id', verifytoken, async(req,res)=>{
   try {
     const email = req.params.id;
     
  
-    User.findOne({email:email})
+    await User.findOne({email:email})
     .then(User=> {
        if(User){
         res.status(200).send(User)
@@ -54,22 +54,22 @@ router.get('/:id', verifytoken, (req,res)=>{
 
 // delete User
 
-router.route('/:id').delete( (req,res)=>{
+router.route('/:id').delete(async (req,res)=>{
 
     const id = req.params.id
      
-    User.findByIdAndDelete(id)
+   await User.findByIdAndDelete(id)
     .then(()=> res.status(200).json("User deleted"))
     .catch(error =>{  res.status(500).send({message: "Can not find User with given id."})})
     
     })
 // update User with id
 
-router.route("/update/:id").patch((req,res)=>{
+router.route("/update/:id").patch(async(req,res)=>{
   const email = req.params.id
   const newUser = req.body
 
-  User.findOne({email: email})
+  await User.findOne({email: email})
   .then(User => {
       
       

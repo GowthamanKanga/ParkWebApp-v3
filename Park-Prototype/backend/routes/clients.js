@@ -6,21 +6,21 @@ let Client = require('../models/clientModels')
 
 
 // view clients 
-router.route('/').get((req,res)=>{
-    Client.find()
+router.route('/').get(async(req,res)=>{
+   await Client.find()
     .then(clients => res.status(200).json(clients))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
 
-router.route('/add').post((req,res)=>{
+router.route('/add').post(async(req,res)=>{
  const client = req.body
   const newClient= new  Admin({
     user : client
   })
 
-newClient.save()
+await newClient.save()
   .then(() => res.json('Client added!'))
   .catch(error => 
    { const errors = handleErrors(error);
@@ -28,11 +28,11 @@ newClient.save()
 });
    
 
-router.route('/:id').get( (req,res)=>{
+router.route('/:id').get( async(req,res)=>{
 
 const id = req.params.id
  
-Client.findById(id)
+await Client.findById(id)
 .then(client=> res.status(200).send(client))
 .catch(() =>{  res.status(500).send({message: "Can not find Admin with given id."})})
 
@@ -40,23 +40,23 @@ Client.findById(id)
 
 // delete Client
 
-router.route('/:id').delete( (req,res)=>{
+router.route('/:id').delete(async (req,res)=>{
 
     const id = req.params.id
      
-    Client.findByIdAndDelete(id)
+    await Client.findByIdAndDelete(id)
     .then(()=> res.status(200).json("Client deleted"))
     .catch(error =>{  res.status(500).send({message: "Can not find client with given id."})})
     
     })
 // update admin with id
 
-router.route("/update/:id").patch((req,res)=>{
+router.route("/update/:id").patch(async(req,res)=>{
 
     const id = req.params.eid
     const newClient = req.body
 
-    Client.findById(id)
+    await Client.findById(id)
     .then(client =>{
         client = newClient
         client.save()
