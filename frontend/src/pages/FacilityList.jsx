@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BookingForm from "./BookingForm";
+
 const mockData = [
   {
     id: 1,
@@ -23,12 +24,21 @@ const mockData = [
     image: "https://via.placeholder.com/150",
     description: "A regulation-size basketball court with adjustable hoops.",
   },
+  {
+    id: 4,
+    name: "Soccer Field",
+    location: "Area 4",
+    image: "https://via.placeholder.com/150",
+    description: "A regulation-size Soccer Field with adjustable gaols.",
+  },
 ];
 
 function FacilityList() {
   const [showModal, setShowModal] = useState(false);
+  const [bookingPage, setBookingPage] = useState(false);
   const [selectedFacility, setSelectedFacility] = useState({});
   const [bookingForm, SetBookingPage] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   const onClose = () => SetBookingPage(false);
   const handleView = (facility) => {
@@ -36,11 +46,17 @@ function FacilityList() {
     setShowModal(true);
   };
 
+  const filteredData = mockData.filter((facility) => {
+    return (
+      facility.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      facility.location.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+
   return (
     <div>
-      <BookingForm visible={bookingForm} Onclose={onClose} />
-      <body className="bg-white">
-        <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+      <BookingForm visible={bookingForm} onClose={onClose} />
+      <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
           <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
             <a href="/Home" className="flex items-center">
               <span className="self-center whitespace-nowrap text-xl font-semibold">
@@ -233,107 +249,115 @@ function FacilityList() {
             <span>Map</span>
           </a>
         </div>
-        <body>
-          <div class="h-screen bg-gray-100 pt-20">
-            <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-              <div class="rounded-lg md:w-2/3 flex flex-col">
-                {mockData.map((data) => {
-                  return (
-                    <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                      <img
-                        src={data.image}
-                        alt="product-image"
-                        class="w-full rounded-lg sm:w-40"
-                      />
-                      <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                        <div class="mt-5 sm:mt-0">
-                          <h2 class="text-lg font-bold text-gray-900">
-                            {data.name}
-                          </h2>
-                          <p class="mt-1 text-xs text-gray-700">
-                            {data.location}
-                          </p>
-                          <p class="mt-1 text-xs text-gray-700">
-                            {data.description}
-                          </p>
-                        </div>
-                        <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                          <div class="flex items-center border-gray-100 flex-col">
-                            <div className="flex items-center rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600 mb-2">
-                              <button onClick={() => handleView(data)}>
-                                View
-                              </button>
-                            </div>
-                            {/* <div className="flex items-center rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
-                              <button
-                                onClick={() => SetBookingPage(true)}
-                                className="text-sm mx-2"
-                              >
-                                Booking
-                              </button>
-                            </div> */}
+      <div className="bg-white">
+        <div className="h-screen bg-gray-100 pt-20">
+          <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+            <div className="rounded-lg md:w-2/3 flex flex-col">
+              <div className="mb-6">
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline"
+                  placeholder="Search for a facility"
+                  value={searchText}
+                  onChange={(event) => setSearchText(event.target.value)}
+                />
+              </div>
+              {filteredData.map((data) => {
+                return (
+                  <div
+                    key={data.id}
+                    className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+                  >
+                    <img
+                      src={data.image}
+                      alt="product-image"
+                      className="w-full rounded-lg sm:w-40"
+                    />
+                    <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                      <div className="mt-5 sm:mt-0">
+                        <h2 className="text-lg font-bold text-gray-900">
+                          {data.name}
+                        </h2>
+                        <p className="mt-1 text-xs text-gray-700">
+                          {data.location}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-700">
+                          {data.description}
+                        </p>
+                      </div>
+                      <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                        <div className="flex items-center border-gray-100 flex-col">
+                          <div className="flex items-center rounded-lg bg-blue-500 px-                          2 py-1">
+                            <button
+                              className="text-white font-bold uppercase px-4 py-2 text-xs rounded-lg"
+                              onClick={() => handleView(data)}
+                            >
+                              View
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-            <footer className="bg-gray-900 p-10 text-white text-center">
-              <p>
-                &copy; Copyright 2022, All Rights Reserved by George Brown
-                Company
-              </p>
-              <p>General Information</p>
-              <p>Phone:(807)938-6534</p>
-              <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
-            </footer>
           </div>
+        </div>
+        <footer className="bg-gray-900 p-10 text-white text-center">
+          <p>
+            &copy; Copyright 2022, All Rights Reserved by George Brown Company
+          </p>
+          <p>General Information</p>
+          <p>Phone:(807)938-6534</p>
+          <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+        </footer>
+      </div>
+      {showModal && (
+  <div className="fixed z-10 inset-0 overflow-y-auto">
+    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
 
-          {showModal && (
-            <Modal onClose={() => setShowModal(false)}>
-              <div className="p-10 bg-white rounded">
-                <h2 className="text-xl font-bold text-gray-900">
-                  {selectedFacility.name}
-                </h2>
-                <img
-                  src={selectedFacility.image}
-                  alt="facility-image"
-                  className="w-full rounded-lg"
-                />
+      <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <div>
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg className="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div className="mt-3 text-center sm:mt-5">
+            <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+              {selectedFacility.name}
+            </h3>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">{selectedFacility.description}</p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 sm:mt-6">
+          <button onClick={() => {
+            setShowModal(false);
+            SetBookingPage(true);
+          }} className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+            Book Facility
+          </button>
+        </div>
+        <div className="absolute top-0 right-0 m-4">
+          <button onClick={() => setShowModal(false)} className="text-red-500 hover:text-red-700 focus:outline-none">
+            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
-                <p className="text-sm text-gray-700 mt-4">
-                  {selectedFacility.location}
-                </p>
-                <p className="text-sm text-gray-700 mt-2">
-                  {selectedFacility.description}
-                </p>
-                <ul className="mt-2"></ul>
-              </div>
-            </Modal>
-          )}
-        </body>
-      </body>
     </div>
   );
 }
-const Modal = ({ onClose, children }) => {
-  return (
-    <div className="fixed top-0 left-0 w-full h-full bg-300 backdrop-blur-sm flex items-center justify-center">
-      <div className="relative w-full max-w-sm">
-        <div className="absolute top-0 right-0">
-          <button
-            className="text-white bg-red-500 rounded-sm py-1 px-3"
-            onClick={onClose}
-          >
-            X
-          </button>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-};
 
 export default FacilityList;

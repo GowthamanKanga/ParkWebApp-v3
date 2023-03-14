@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
-export default function BookingForm({ visible, Onclose }) {
+export default function BookingForm({ visible, onClose }) {
   const [formOpen, setFormOpen] = useState(true);
 
   const [first_name, setfirst_name] = useState("");
@@ -16,6 +16,12 @@ export default function BookingForm({ visible, Onclose }) {
       <div className="fixed inset-0   bg-300 backdrop-blur-sm flex items-center justify-center">
         <div class="flex items-center justify-center p-12">
           <div class="mx-auto w-full max-w-[550px] p-10 bg-white rounded">
+          <button
+              className="absolute top-3 right-3 text-red-500"
+              onClick={onClose}
+            >
+              X
+            </button>
             <form>
               <div class="-mx-3 flex flex-wrap">
                 <div class="w-full px-3 sm:w-1/2">
@@ -148,7 +154,7 @@ export default function BookingForm({ visible, Onclose }) {
                 </button>
                 <button
                   className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
-                  onClick={Onclose}
+                  onClick={onClose}
                 >
                   Cancel
                 </button>
