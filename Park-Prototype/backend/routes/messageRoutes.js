@@ -1,5 +1,6 @@
 const Message = require('../models/message');
 const express = require('express');
+const { verifytoken } = require('./func');
 const router = express.Router();
 
 // Create a new message
@@ -33,7 +34,7 @@ return await Message.findByIdAndDelete(id);
 };
 
 // Create a new message
-router.post('/message', async (req, res) => {
+router.post('/message', verifytoken, async (req, res) => {
 const authorId = req.body.authorId;
 const message = req.body.message;
 const newMessage = await createMessage(authorId, message);
@@ -41,20 +42,20 @@ res.json(newMessage);
 });
 
 // Get all messages
-router.get('/messages', async (req, res) => {
+router.get('/messages', verifytoken, async (req, res) => {
 const messages = await getAllMessages();
 res.json(messages);
 });
 
 // Get a message by ID
-router.get('/messages/:id', async (req, res) => {
+router.get('/messages/:id', verifytoken, async (req, res) => {
 const id = req.params.id;
 const message = await getMessageById(id);
 res.json(message);
 });
 
 // Update a message by ID
-router.patch('messages/:id', async (req, res) => {
+router.patch('messages/:id', verifytoken, async (req, res) => {
 const id = req.params.id;
 const update = req.body;
 const updatedMessage = await updateMessageById(id, update);
@@ -62,7 +63,7 @@ res.json(updatedMessage);
 });
 
 // Delete a message by ID
-router.delete('messages/:id', async (req, res) => {
+router.delete('messages/:id', verifytoken, async (req, res) => {
 const id = req.params.id;
 const deletedMessage = await deleteMessageById(id);
 res.json(deletedMessage);

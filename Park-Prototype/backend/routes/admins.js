@@ -6,20 +6,20 @@ let Admin = require('../models/adminModels')
 
 
 // view admin 
-router.route('/').get((req,res)=>{
-    Admin.find()
+router.route('/').get(async(req,res)=>{
+    await Admin.find()
     .then(admins => res.status(200).json(admins))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
-router.route('/add').post((req,res)=>{
+router.route('/add').post(async(req,res)=>{
  const adm = req.body
   const newAdmin= new  Admin({
     user : adm
   })
 
-newAdmin.save()
+await newAdmin.save()
   .then(() => res.json('admin added!'))
   .catch(error => 
    { const errors = handleErrors(error);
@@ -27,11 +27,11 @@ newAdmin.save()
 });
    
 
-router.route('/:id').get( (req,res)=>{
+router.route('/:id').get( async(req,res)=>{
 
 const id = req.params.id
  
-Admin.findById(id)
+await Admin.findById(id)
 .then(admin=> res.status(200).send(admin))
 .catch(() =>{  res.status(500).send({message: "Can not find Admin with given id."})})
 
@@ -39,23 +39,23 @@ Admin.findById(id)
 
 // delete admin
 
-router.route('/:id').delete( (req,res)=>{
+router.route('/:id').delete( async(req,res)=>{
 
     const id = req.params.id
      
-    Admin.findByIdAndDelete(id)
+    await Admin.findByIdAndDelete(id)
     .then(()=> res.status(200).json("Admin deleted"))
     .catch(error =>{  res.status(500).send({message: "Can not find Admin with given id."})})
     
     })
 // update admin with id
 
-router.route("/update/:id").patch((req,res)=>{
+router.route("/update/:id").patch(async(req,res)=>{
 
     const id = req.params.eid
     const newAdmin = req.body
 
-    EmployeeModel.findById(id)
+    await Admin.findById(id)
     .then(admin =>{
         admin = newAdmin
         admin.save()
