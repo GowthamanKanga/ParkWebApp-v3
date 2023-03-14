@@ -5,8 +5,15 @@ import Modal from "./EditParkHomeModal";
 
 const EditHome = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState(mockData.title);
   const [newAboutText, setNewAboutText] = useState(mockData.about);
   const [newEventsText, setNewEventsText] = useState(mockData.events);
+  const [newInfo, setNewInfo] = useState(mockData.info);
+  const [newHours, setNewHours] = useState(mockData.hours);
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value);
+  };
 
   const handleAboutChange = (event) => {
     setNewAboutText(event.target.value);
@@ -16,6 +23,13 @@ const EditHome = () => {
     setNewEventsText(event.target.value);
   };
 
+  const handleInfoChange = (event) => {
+    setNewInfo(event.target.value);
+  };
+
+  const handleHoursChange = (event) => {
+    setNewHours(event.target.value);
+  };
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -26,14 +40,19 @@ const EditHome = () => {
   };
 
   const handleSaveChanges = () => {
+    mockData.title = newTitle;
     mockData.about = newAboutText;
     mockData.events = newEventsText;
+    mockData.info = newInfo;
+    mockData.hours = newHours;
     setModalOpen(false);
   };
-
   return (
     <>
-      <div className="bg-cover bg-center h-64 w-full"style={{ backgroundImage: `url(${centreIslandPier})` }}>
+      <div
+        className="bg-cover bg-center h-64 w-full"
+        style={{ backgroundImage: `url(${centreIslandPier})` }}
+      >
         <div className="container mx-auto h-full flex items-center justify-center">
           <h1 className="text-white text-5xl font-bold leading-tight">
             {mockData.title}
@@ -89,7 +108,77 @@ const EditHome = () => {
         <div className="mb-6">
           <label
             className="block text-gray-700 font-bold mb-2"
-            htmlFor="about-textarea">
+            htmlFor="park-title"
+          >
+            Title
+          </label>
+          <input
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+            id="park-title"
+            type="text"
+            value={mockData.title}
+            onChange={(event) => {
+              mockData({ ...mockData, title: event.target.value });
+            }}
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="park-info"
+          >
+            Info
+          </label>
+          <textarea
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+            id="park-info"
+            rows="5"
+            value={mockData.info.join("\n")}
+            onChange={(event) => {
+              mockData({
+                ...mockData,
+                info: event.target.value.split("\n"),
+              });
+            }}
+          ></textarea>
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="park-hours"
+          >
+            Hours
+          </label>
+          {mockData.hours.map((item, index) => (
+            <div key={index} className="flex mb-2">
+              <input
+                className="w-1/2 px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                type="text"
+                value={item.day}
+                onChange={(event) => {
+                  const hours = [...mockData.hours];
+                  hours[index].day = event.target.value;
+                  mockData({ ...mockData, hours });
+                }}
+              />
+              <input
+                className="w-1/2 px-3 py-2 text-gray-700 border rounded-lg focus:outline-none ml-2"
+                type="text"
+                value={item.time}
+                onChange={(event) => {
+                  const hours = [...mockData.hours];
+                  hours[index].time = event.target.value;
+                  mockData({ ...mockData, hours });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="about-textarea"
+          >
             About Us
           </label>
           <textarea
