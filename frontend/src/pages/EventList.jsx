@@ -214,6 +214,7 @@ function EventList() {
         </h1>
       </div>
 
+      
       <div className="flex flex-wrap items-center  overflow-x-auto overflow-y-hidden py-10 justify-center   bg-white text-gray-800">
         <a
           rel="noopener noreferrer"
@@ -347,6 +348,9 @@ function EventList() {
                   <div className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
                     <div className="md:text-3xl">{event.month}</div>
                     <div className="md:text-3xl">{event.date}</div>
+                    <div className="text-sm text-gray-800">
+            {indexOfFirstEvent + 1}/{mockData.length}
+          </div>
                     <button
                       className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
                       onClick={() => handleViewButtonClick(event)}
@@ -406,11 +410,13 @@ function EventList() {
         )}
       </div>
       <footer className="bg-gray-900 p-10 text-white text-center">
-  <p>&copy; Copyright 2022, All Rights Reserved by George Brown Company</p>
-  <p>General Information</p>
-  <p>Phone:(807)938-6534</p>
-  <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
-</footer>
+        <p>
+          &copy; Copyright 2022, All Rights Reserved by George Brown Company
+        </p>
+        <p>General Information</p>
+        <p>Phone:(807)938-6534</p>
+        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </footer>
     </body>
   );
 }
