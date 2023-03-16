@@ -13,7 +13,7 @@ router.post('/tickets/add', /*verifytoken,*/  async(req, res) => {
     }
     else {
         try {
-            const ticket = new Event(newTicket)
+            const ticket = new Ticket(newTicket)
             await ticket.save()
             res.status(201).send(ticket)
         }
@@ -35,9 +35,9 @@ router.post('/tickets', /*verifytoken,*/ async (req, res) => {
     }
 })
 
-router.get('/tickets', async (req, res) => {
+router.get('/tickets', /*verifytoken,*/ async (req, res) => {
     try {
-        const tickets = await Ticket.find({})
+        const tickets = await Ticket.find({}).populate("event","name")
         res.send(tickets)
     } catch (e) {
         res.status(500).send()
