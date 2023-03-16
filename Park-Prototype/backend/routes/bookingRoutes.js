@@ -32,7 +32,7 @@ route.post('/booking/add', /*verifytoken,*/ async(req, res) => {
 
 route.get("/bookings", /*verifytoken,*/ async (req, res) => {
   try {
-    const bookings = await order.find({});
+    const bookings = await order.find({}).populate('facilities', 'name');
     res.status(200).send(bookings);
   } catch (error) {
     res.status(500).send(error);
