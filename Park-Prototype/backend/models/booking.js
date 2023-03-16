@@ -6,11 +6,13 @@ const bookingSchema = new Schema({
 
     bookingNumber: String,
     facilities: [{
-        type: String
-    }],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'facilityModel'
+      }],
 
     user: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
 
