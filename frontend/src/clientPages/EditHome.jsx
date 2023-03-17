@@ -10,8 +10,9 @@ const EditHome = () => {
   const [newEventsText, setNewEventsText] = useState(mockData.events);
   const [newInfo, setNewInfo] = useState(mockData.info);
   const [newHours, setNewHours] = useState(mockData.hours);
-  const [activeSection, setActiveSection] = useState(0);  const [backgroundImage, setBackgroundImage] = useState(centreIslandPier);
-  const [newTitleColor, setNewTitleColor] = useState('#ffffff'); 
+  const [activeSection, setActiveSection] = useState(0);
+  const [backgroundImage, setBackgroundImage] = useState(centreIslandPier);
+  const [newTitleColor, setNewTitleColor] = useState("#ffffff");
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -23,7 +24,7 @@ const EditHome = () => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const sectionList = [
     "Title",
     "Events & Programs",
@@ -32,7 +33,6 @@ const EditHome = () => {
     "Hours",
     "Background Image",
   ];
-  
 
   const handleNextSection = () => {
     if (activeSection < sectionList.length - 1) {
@@ -89,10 +89,12 @@ const EditHome = () => {
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         <div className="container mx-auto h-full flex items-center justify-center">
-        <h1 className="text-5xl font-bold leading-tight" style={{ color: newTitleColor }}>
-  {mockData.title}
-</h1>
-
+          <h1
+            className="text-5xl font-bold leading-tight"
+            style={{ color: newTitleColor }}
+          >
+            {mockData.title}
+          </h1>
         </div>
       </div>
 
@@ -160,25 +162,24 @@ const EditHome = () => {
           </div>
         )}
         {activeSection === 0 && (
-  <div className="mb-6">
-
-    <div className="mt-4">
-      <label
-        className="block text-gray-700 font-bold mb-2"
-        htmlFor="title-color"
-      >
-        Title Color
-      </label>
-      <input
-        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-        id="title-color"
-        type="color"
-        value={newTitleColor}
-        onChange={(event) => setNewTitleColor(event.target.value)}
-      />
-    </div>
-  </div>
-)}
+          <div className="mb-6">
+            <div className="mt-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="title-color"
+              >
+                Title Color
+              </label>
+              <input
+                className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                id="title-color"
+                type="color"
+                value={newTitleColor}
+                onChange={(event) => setNewTitleColor(event.target.value)}
+              />
+            </div>
+          </div>
+        )}
         {activeSection === 0 && (
           <div className="mb-6">
             {

@@ -9,7 +9,7 @@ import ChatForum from "./pages/ChatForum";
 import ParkInfo from "./pages/ParkInfo"
 import DeniedForm from "./pages/DeniedForm"
 import EditHome from "./clientPages/EditHome"
-import EditFacilityList from "./clientPages/EditFacilityList"
+import EditFacilityList from "./clientPages/ClientFacilityList"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
