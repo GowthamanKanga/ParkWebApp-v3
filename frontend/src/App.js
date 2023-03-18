@@ -10,6 +10,7 @@ import ParkInfo from "./pages/ParkInfo"
 import DeniedForm from "./pages/DeniedForm"
 import EditHome from "./clientPages/EditHome"
 import EditFacilityList from "./clientPages/ClientFacilityList"
+import ClientEventList from "./clientPages/ClientEventList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/DeniedForm" element={<DeniedForm/>} />
           <Route path="/EditHome" element={<EditHome/>} />
           <Route path="/EditFacilityList" element={<EditFacilityList/>} />
+          <Route path="/ClientEventList" element={<ClientEventList/>} />
         </Routes>
       </Router>
     </>

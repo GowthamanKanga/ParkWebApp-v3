@@ -289,7 +289,10 @@ function ClientFacilityList() {
             </div>
             
           </div>
-          {showEditModal && (
+        </div>
+        
+      )}
+                {showEditModal && (
             <EditFacilityModal
               show={showEditModal}
               onClose={() => setShowEditModal(false)}
@@ -297,9 +300,6 @@ function ClientFacilityList() {
               onUpdate={handleUpdate}
             />
           )}
-        </div>
-        
-      )}
     </div>
   );
 }
