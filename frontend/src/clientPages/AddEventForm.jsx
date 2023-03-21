@@ -5,15 +5,20 @@ const AddEventForm = ({ onEventSubmit }) => {
   const [eventData, setEventData] = useState({
     name: "",
     month: "",
-    dayOfMonth: "",
+    date: "",
     startTime: "",
     endTime: "",
     location: "",
     description: "",
+    image: "",
   });
 
   const handleChange = (e) => {
     setEventData({ ...eventData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    setEventData({ ...eventData, image: e.target.files[0] });
   };
 
   const validateInput = () => {
@@ -47,11 +52,12 @@ const AddEventForm = ({ onEventSubmit }) => {
       setEventData({
         name: "",
         month: "",
-        dayOfMonth: "",
+        date: "",
         startTime: "",
         endTime: "",
         location: "",
         description: "",
+        image: "",
       });
     } else {
       alert("Please fill in all fields correctly.");
@@ -86,13 +92,13 @@ const AddEventForm = ({ onEventSubmit }) => {
       </label>
 
       <label className="block mb-2">
-        Day of Month
+        Date
         <input
           type="number"
           min="1"
           max="31"
-          name="dayOfMonth"
-          value={eventData.dayOfMonth}
+          name="date"
+          value={eventData.date}
           onChange={handleChange}
           className="border border-gray-300 p-2 w-full mt-1"
         />
@@ -108,7 +114,7 @@ const AddEventForm = ({ onEventSubmit }) => {
         />
       </label>
       <label className="block mb-2">
-        Start Time
+      Start Time
         <input
           type="time"
           name="startTime"
@@ -146,6 +152,15 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="border border-gray-300 p-2 w-full mt-1"
           rows="4"
         ></textarea>
+      </label>
+      <label className="block mb-2">
+        Image
+        <input
+          type="file"
+          name="image"
+          onChange={handleImageChange}
+          className="border border-gray-300 p-2 w-full mt-1"
+        />
       </label>
       <button
         type="submit"

@@ -94,6 +94,13 @@ function ClientEventList() {
     setEventsData([...eventsData, updatedEvent]);
   };
 
+  const handleDeleteEvent = (eventId) => {
+    const updatedEventsData = eventsData.filter(
+      (event) => event.id !== eventId
+    );
+    setEventsData(updatedEventsData);
+  };
+
   const eventId = localStorage.getItem("eventId");
 
   const navigate = useNavigate();
@@ -181,6 +188,12 @@ function ClientEventList() {
                         onChange={(e) => setEvent(e.target.value)}
                       >
                         Tickets
+                      </button>
+                      <button
+                        className="text-white bg-red-500 rounded-sm py-2 px-3 mt-2 w-32"
+                        onClick={() => handleDeleteEvent(event.id)}
+                      >
+                        Delete
                       </button>
                     </div>
                     <div className="flex flex-col w-full md:w-3/4 p-10">
