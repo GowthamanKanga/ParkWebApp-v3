@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { format, parse, startOfWeek, getDay } from "date-fns";
+import { parse } from "date-fns";
 
 const AddEventForm = ({ onEventSubmit }) => {
   const [eventData, setEventData] = useState({
     name: "",
     month: "",
-    date: "",
+    dayOfMonth: "",
     startTime: "",
     endTime: "",
     location: "",
@@ -24,14 +24,12 @@ const AddEventForm = ({ onEventSubmit }) => {
       }
     }
 
-    // Validate date and time
-    const dateFormat = "yyyy-MM-dd";
+    // Validate time
     const timeFormat = "HH:mm";
-    const parsedDate = parse(eventData.date, dateFormat, new Date());
     const parsedStartTime = parse(eventData.startTime, timeFormat, new Date());
     const parsedEndTime = parse(eventData.endTime, timeFormat, new Date());
 
-    if (isNaN(parsedDate) || isNaN(parsedStartTime) || isNaN(parsedEndTime)) {
+    if (isNaN(parsedStartTime) || isNaN(parsedEndTime)) {
       return false;
     }
 
@@ -49,7 +47,7 @@ const AddEventForm = ({ onEventSubmit }) => {
       setEventData({
         name: "",
         month: "",
-        date: "",
+        dayOfMonth: "",
         startTime: "",
         endTime: "",
         location: "",
@@ -64,30 +62,37 @@ const AddEventForm = ({ onEventSubmit }) => {
     <form onSubmit={handleSubmit} className="bg-white p-5">
       <h2 className="text-xl font-bold mb-4">Add Event</h2>
       <label className="block mb-2">
-        Image
-        <input
-          type="file"
-          name="image"
-          onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
-        />
-      </label>
-      <label className="block mb-2">
         Month
-        <input
-          type="text"
+        <select
           name="month"
           value={eventData.month}
           onChange={handleChange}
           className="border border-gray-300 p-2 w-full mt-1"
-        />
+        >
+          <option value="">Select a month</option>
+          <option value="Jan">Jan</option>
+          <option value="Feb">Feb</option>
+          <option value="Mar">Mar</option>
+          <option value="Apr">Apr</option>
+          <option value="May">May</option>
+          <option value="Jun">Jun</option>
+          <option value="Jul">Jul</option>
+          <option value="Aug">Aug</option>
+          <option value="Sep">Sep</option>
+          <option value="Oct">Oct</option>
+          <option value="Nov">Nov</option>
+          <option value="Dec">Dec</option>
+        </select>
       </label>
+
       <label className="block mb-2">
-        Date
+        Day of Month
         <input
-          type="date"
-          name="date"
-          value={eventData.date}
+          type="number"
+          min="1"
+          max="31"
+          name="dayOfMonth"
+          value={eventData.dayOfMonth}
           onChange={handleChange}
           className="border border-gray-300 p-2 w-full mt-1"
         />
@@ -120,32 +125,36 @@ const AddEventForm = ({ onEventSubmit }) => {
           value={eventData.endTime}
           onChange={handleChange}
           className="border border-gray-300 p-2 w-full mt-1"
-          />
-          </label>
-          <label className="block mb-2">
-          Location
-          <input
-                 type="text"
-                 name="location"
-                 value={eventData.location}
-                 onChange={handleChange}
-                 className="border border-gray-300 p-2 w-full mt-1"
-               />
-          </label>
-          <label className="block mb-2">
-          Description
-          <textarea
-                 name="description"
-                 value={eventData.description}
-                 onChange={handleChange}
-                 className="border border-gray-300 p-2 w-full mt-1"
-               ></textarea>
-          </label>
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-4">
-          Submit
-          </button>
-          </form>
-          );
-          };
-          
-          export default AddEventForm;
+        />
+      </label>
+      <label className="block mb-2">
+        Location
+        <input
+          type="text"
+          name="location"
+          value={eventData.location}
+          onChange={handleChange}
+          className="border border-gray-300 p-2 w-full mt-1"
+        />
+      </label>
+      <label className="block mb-4">
+        Description
+        <textarea
+          name="description"
+          value={eventData.description}
+          onChange={handleChange}
+          className="border border-gray-300 p-2 w-full mt-1"
+          rows="4"
+        ></textarea>
+      </label>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white font-bold px-4 py-2 rounded"
+      >
+        Add Event
+      </button>
+    </form>
+  );
+};
+
+export default AddEventForm;

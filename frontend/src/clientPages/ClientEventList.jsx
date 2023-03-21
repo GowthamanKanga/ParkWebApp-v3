@@ -80,18 +80,18 @@ function ClientEventList() {
   const eventsPerPage = 1;
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = mockData.slice(indexOfFirstEvent, indexOfLastEvent);
-  const totalPages = Math.ceil(mockData.length / eventsPerPage);
   const [ticketForm, SetTicketForm] = useState("");
   const [event, setEvent] = useState(" ");
   const [response, setResponse] = useState("");
   const [events, setEvents] = useState([]);
   const [eventsData, setEventsData] = useState(mockData);
+  const currentEvents = eventsData.slice(indexOfFirstEvent, indexOfLastEvent);
+  const totalPages = Math.ceil(eventsData.length / eventsPerPage);
 
   const handleEventSubmit = (newEvent) => {
-    const id = Math.max(...mockData.map((e) => e.id)) + 1;
+    const id = Math.max(...eventsData.map((e) => e.id)) + 1;
     const updatedEvent = { ...newEvent, id };
-    mockData.push(updatedEvent);
+    setEventsData([...eventsData, updatedEvent]);
   };
 
   const eventId = localStorage.getItem("eventId");
@@ -148,75 +148,77 @@ function ClientEventList() {
       {/* nav code here  */}
       {/* small div code here */}
       {/* large div code here  */}
-      <div className="h-screen bg-gray-100 flex items-start justify-center px-0">
-        <AddEventForm onEventSubmit={handleEventSubmit} />
-      </div>
-      <div className="h-screen bg-gray-100 flex items-center justify-center px-0">
-        <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
-          <div className="event-card">
-            {currentEvents.map((event) => (
-              <div key={event.id}>
-                <div
-                  className="w-full h-72 bg-top bg-cover rounded-t"
-                  style={{ backgroundImage: `url(${event.image})` }}
-                ></div>
-                <div className="flex flex-col w-full md:flex-row">
-                  <div className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
-                    <div className="md:text-3xl">{event.month}</div>
-                    <div className="md:text-3xl">{event.date}</div>
-                    <div className="text-sm text-gray-800">
-                      {indexOfFirstEvent + 1}/{mockData.length}
+      <div className="h-screen bg-gray-100 flex px-0">
+        <div className="w-1/3 p-6">
+          <AddEventForm onEventSubmit={handleEventSubmit} />
+        </div>
+        <div className="w-2/3">
+          <div className="h-screen bg-gray-100 flex items-center justify-center px-0">
+            <div className="event-card">
+              {currentEvents.map((event) => (
+                <div key={event.id}>
+                  <div
+                    className="w-full h-72 bg-top bg-cover rounded-t"
+                    style={{ backgroundImage: `url(${event.image})` }}
+                  ></div>
+                  <div className="flex flex-col w-full md:flex-row">
+                    <div className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
+                      <div className="md:text-3xl">{event.month}</div>
+                      <div className="md:text-3xl">{event.date}</div>
+                      <div className="text-sm text-gray-800">
+                        {indexOfFirstEvent + 1}/{eventsData.length}
+                      </div>
+                      <button
+                        className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
+                        onClick={() => handleViewButtonClick(event)}
+                      >
+                        View
+                      </button>
+                      <button
+                        className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
+                        onClick={() => SetTicketForm(true)}
+                        value={event}
+                        onChange={(e) => setEvent(e.target.value)}
+                      >
+                        Tickets
+                      </button>
                     </div>
-                    <button
-                      className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
-                      onClick={() => handleViewButtonClick(event)}
-                    >
-                      View
-                    </button>
-                    <button
-                      className="text-white bg-blue-500 rounded-sm py-2 px-3 mt-2 w-32"
-                      onClick={() => SetTicketForm(true)}
-                      value={event}
-                      onChange={(e) => setEvent(e.target.value)}
-                    >
-                      Tickets
-                    </button>
-                  </div>
-                  <div className="flex flex-col w-full md:w-3/4 p-10">
-                    <div className="text-xl font-bold text-gray-800">
-                      {event.name}
-                    </div>
-                    <div className="text-sm text-gray-800">
-                      {event.startTime} - {event.endTime}
-                    </div>
-                    <div className="text-sm text-gray-800">
-                      {event.location}
-                    </div>
-                    <div className="text-sm text-gray-800">
-                      {event.description}
-                    </div>
-                    <div className="flex justify-center my-8">
-                      {currentPage !== 1 && (
-                        <button
-                          className="text-white bg-blue-500 rounded-sm py-1 px-3 mx-2"
-                          onClick={() => handlePageChange(currentPage - 1)}
-                        >
-                          Previous
-                        </button>
-                      )}
-                      {currentPage !== totalPages && (
-                        <button
-                          className="text-white bg-blue-500 rounded-sm py-2 px-3 mx-2"
-                          onClick={() => handlePageChange(currentPage + 1)}
-                        >
-                          Next
-                        </button>
-                      )}
+                    <div className="flex flex-col w-full md:w-3/4 p-10">
+                      <div className="text-xl font-bold text-gray-800">
+                        {event.name}
+                      </div>
+                      <div className="text-sm text-gray-800">
+                        {event.startTime} - {event.endTime}
+                      </div>
+                      <div className="text-sm text-gray-800">
+                        {event.location}
+                      </div>
+                      <div className="text-sm text-gray-800">
+                        {event.description}
+                      </div>
+                      <div className="flex justify-center my-8">
+                        {currentPage !== 1 && (
+                          <button
+                            className="text-white bg-blue-500 rounded-sm py-1 px-3 mx-2"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                          >
+                            Previous
+                          </button>
+                        )}
+                        {currentPage !== totalPages && (
+                          <button
+                            className="text-white bg-blue-500 rounded-sm py-2 px-3 mx-2"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                          >
+                            Next
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
         {showModal && (

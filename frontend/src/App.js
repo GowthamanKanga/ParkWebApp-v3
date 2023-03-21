@@ -30,7 +30,7 @@ function App() {
           <Route path="/DeniedForm" element={<DeniedForm/>} />
           <Route path="/EditHome" element={<EditHome/>} />
           <Route path="/EditFacilityList" element={<EditFacilityList/>} />
-          <Route path="/ClientEventList" element={<ClientEventList/>} />
+        <Route path="/ClientEventList" element={<ClientEventList/>} />
         </Routes>
       </Router>
     </>
