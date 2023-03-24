@@ -8,7 +8,7 @@ const eventSchema = new Schema({
     description: String,
 
     park: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
 
