@@ -4,15 +4,16 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
 
-    bookingNumber: String,
-    facilities: [{
+
+    facilities: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'facilityModel',
         required: true
-      }],
+      },
 
     user: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
 
@@ -20,12 +21,6 @@ const bookingSchema = new Schema({
     amount_of_guests: {
         type: Number,
         required: true,
-
-        validate(value) {
-            if(value <= 0) {
-                throw new Error("Can not be negative or zero")
-            }
-        },
         default: 1
     },
 
@@ -38,6 +33,14 @@ const bookingSchema = new Schema({
         type: String,
         required: true,
         // unique: true
+    },
+    equipment: {
+        name: {
+            type: String,
+        },
+        quantity: {
+            type: Number
+        }
     }
 
 })
