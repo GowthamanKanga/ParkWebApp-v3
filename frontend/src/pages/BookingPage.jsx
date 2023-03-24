@@ -114,6 +114,7 @@ const Bookings = () => {
 
       if (Object.keys(newErrors).length === 0) {
         try {
+          let booking_id = Math.floor(Math.random() * 1000000)
           const response = await fetch("http://localhost:5501/booking/add", {
             method: "POST",
             headers: {
@@ -126,6 +127,8 @@ const Bookings = () => {
               amount_of_guests,
               start_time,
               end_time,
+              booking_id
+
             }),
           });
           console.log(response);

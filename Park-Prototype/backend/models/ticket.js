@@ -12,7 +12,13 @@ const ticketSchema = new mongoose.Schema({
     number_Of_Tickets: {
         type: Number,
         required: true
-    }
+    },
+    ticket_id: {
+        type: Number,
+        required: true,
+        unique: true,
+        default: Math.floor(Math.random() * 1000000) // generate a random number between 0 and 999999
+    },
 })
 
 

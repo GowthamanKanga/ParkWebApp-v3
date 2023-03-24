@@ -34,6 +34,8 @@ export default function EventTicket({ visible, Onclose }) {
       const newErrors = validate();
       setErrors(newErrors);
 
+      let ticket_id = Math.floor(Math.random() * 1000000)
+
       if (Object.keys(newErrors).length === 0) {
         try {
           const response = await fetch("http://localhost:5501/tickets/add", {
@@ -45,6 +47,7 @@ export default function EventTicket({ visible, Onclose }) {
               first_name,
               last_name,
               number_Of_Tickets,
+              ticket_id
             }),
           });
           console.log(response);
