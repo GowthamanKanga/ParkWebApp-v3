@@ -12,7 +12,6 @@ const EditHome = () => {
   const [newHours, setNewHours] = useState(mockData.hours);
   const [activeSection, setActiveSection] = useState(0);
   const [backgroundImage, setBackgroundImage] = useState(centreIslandPier);
-  const [newTitleColor, setNewTitleColor] = useState("#ffffff");
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -90,9 +89,7 @@ const EditHome = () => {
       >
         <div className="container mx-auto h-full flex items-center justify-center">
           <h1
-            className="text-5xl font-bold leading-tight"
-            style={{ color: newTitleColor }}
-          >
+            className="text-5xl font-bold leading-tight"          >
             {mockData.title}
           </h1>
         </div>
@@ -159,25 +156,6 @@ const EditHome = () => {
               accept="image/*"
               onChange={handleImageUpload}
             />
-          </div>
-        )}
-        {activeSection === 0 && (
-          <div className="mb-6">
-            <div className="mt-4">
-              <label
-                className="block text-gray-700 font-bold mb-2"
-                htmlFor="title-color"
-              >
-                Title Color
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-                id="title-color"
-                type="color"
-                value={newTitleColor}
-                onChange={(event) => setNewTitleColor(event.target.value)}
-              />
-            </div>
           </div>
         )}
         {activeSection === 0 && (

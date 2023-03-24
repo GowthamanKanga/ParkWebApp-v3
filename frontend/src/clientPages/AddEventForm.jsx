@@ -11,6 +11,8 @@ const AddEventForm = ({ onEventSubmit }) => {
     location: "",
     description: "",
     image: "",
+    totalTickets: "",
+    ticketsLeft: "",
   });
 
   const handleChange = (e) => {
@@ -18,7 +20,15 @@ const AddEventForm = ({ onEventSubmit }) => {
   };
 
   const handleImageChange = (e) => {
-    setEventData({ ...eventData, image: e.target.files[0] });
+    const imageFile = e.target.files[0];
+    setEventData({ ...eventData, image: imageFile });
+
+    // Create a URL object for the selected image file
+    const imageUrl = URL.createObjectURL(imageFile);
+
+    // Update the image preview
+    const previewImage = document.getElementById("image-preview");
+    previewImage.src = imageUrl;
   };
 
   const validateInput = () => {
@@ -114,7 +124,7 @@ const AddEventForm = ({ onEventSubmit }) => {
         />
       </label>
       <label className="block mb-2">
-      Start Time
+        Start Time
         <input
           type="time"
           name="startTime"
@@ -154,14 +164,39 @@ const AddEventForm = ({ onEventSubmit }) => {
         ></textarea>
       </label>
       <label className="block mb-2">
-        Image
+        Total Tickets
         <input
-          type="file"
-          name="image"
-          onChange={handleImageChange}
+          type="number"
+          min="0"
+          name="totalTickets"
+          value={eventData.totalTickets}
+          onChange={handleChange}
           className="border border-gray-300 p-2 w-full mt-1"
         />
       </label>
+      <label className="block mb-2">
+        Tickets Left
+        <input
+          type="number"
+          min="0"
+          name="ticketsLeft"
+          value={eventData.ticketsLeft}
+          onChange={handleChange}
+          className="border border-gray-300 p-2 w-full mt-1"
+        />
+      </label>
+      <label className="block mb-2">
+  Image
+  <input
+    type="file"
+    name="image"
+    onChange={handleImageChange}
+    className="border border-gray-300 p-2 w-full mt-1"
+  />
+  <img id="image-preview" src="" alt="" />
+</label>
+
+
       <button
         type="submit"
         className="bg-blue-500 text-white font-bold px-4 py-2 rounded"

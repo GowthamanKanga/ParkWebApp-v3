@@ -285,21 +285,18 @@ function ClientFacilityList() {
                   </button>
                 </div>
               </div>
-              
             </div>
-            
           </div>
         </div>
-        
       )}
-                {showEditModal && (
-            <EditFacilityModal
-              show={showEditModal}
-              onClose={() => setShowEditModal(false)}
-              facility={facilityToEdit}
-              onUpdate={handleUpdate}
-            />
-          )}
+      {showEditModal && (
+        <EditFacilityModal
+          show={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          facility={facilityToEdit}
+          onUpdate={handleUpdate}
+        />
+      )}
     </div>
   );
 }
