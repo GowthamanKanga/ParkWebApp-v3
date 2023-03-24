@@ -11,6 +11,23 @@ const mockData = [
     image: "https://via.placeholder.com/150",
     description:
       "A playground with swings, slides and monkey bars for children to play on.",
+    capacity: 25,
+    equipment: [
+      {
+        name: "Swing",
+        quantity: 4,
+        description: "Metal swings with rubber seats",
+      },
+      {
+        name: "Slide",
+        quantity: 2,
+        description: "Plastic slides for children",
+      },
+    ],
+    visitors: {
+      max: 30,
+      min: 5,
+    },
   },
   {
     id: 2,
@@ -18,6 +35,23 @@ const mockData = [
     location: "Area 2",
     image: "https://via.placeholder.com/150",
     description: "A full-size tennis court with lights for evening play.",
+    capacity: 4,
+    equipment: [
+      {
+        name: "Tennis Racket",
+        quantity: 4,
+        description: "Standard tennis rackets for adults",
+      },
+      {
+        name: "Tennis Ball",
+        quantity: 12,
+        description: "Standard tennis balls",
+      },
+    ],
+    visitors: {
+      max: 10,
+      min: 2,
+    },
   },
   {
     id: 3,
@@ -25,6 +59,23 @@ const mockData = [
     location: "Area 3",
     image: "https://via.placeholder.com/150",
     description: "A regulation-size basketball court with adjustable hoops.",
+    capacity: 10,
+    equipment: [
+      {
+        name: "Basketball",
+        quantity: 4,
+        description: "Regulation-size basketballs",
+      },
+      {
+        name: "Hoop",
+        quantity: 2,
+        description: "Adjustable basketball hoops",
+      },
+    ],
+    visitors: {
+      max: 20,
+      min: 2,
+    },
   },
 ];
 
@@ -38,6 +89,8 @@ function ClientFacilityList() {
   const [facilities, setFacilities] = useState(mockData);
   const [showEditModal, setShowEditModal] = useState(false);
   const [facilityToEdit, setFacilityToEdit] = useState({});
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [facilityToDelete, setFacilityToDelete] = useState(null);
 
   const handleEdit = (facility) => {
     setFacilityToEdit(facility);
@@ -53,7 +106,15 @@ function ClientFacilityList() {
   };
 
   const handleDelete = (id) => {
-    setFacilities(facilities.filter((facility) => facility.id !== id));
+    setFacilityToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setFacilities(
+      facilities.filter((facility) => facility.id !== facilityToDelete)
+    );
+    setShowDeleteModal(false);
   };
 
   const handleAddFacility = (newFacility) => {
@@ -97,6 +158,14 @@ function ClientFacilityList() {
         <p>{facility.location}</p>
         <img src={facility.image} alt={facility.name} />
         <p>{facility.description}</p>
+        <p>Equipment:</p>
+        <ul>
+          {facility.equipment.map((item) => (
+            <li key={item.name}>
+              {item.name} ({item.quantity}): {item.description}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -104,9 +173,7 @@ function ClientFacilityList() {
   return (
     <div>
       <BookingForm visible={bookingForm} onClose={onClose} />
-      {/* nav code here  */}
-      {/* small div code here */}
-      {/* large div code here  */}
+      {/* nav bar here */}
       <div className="bg-white">
         <div className="h-screen bg-gray-100 pt-20">
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
@@ -146,7 +213,28 @@ function ClientFacilityList() {
                         <p className="mt-1 text-xs text-gray-700">
                           {data.description}
                         </p>
+                        <p className="mt-1 text-xs text-gray-700">
+                          Capacity: {data.capacity}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-700">
+                          Visitors allowed: {data.visitors.min} -{" "}
+                          {data.visitors.max}
+                        </p>
+                        <div className="mt-2">
+                          <h4 className="text-xs font-semibold text-gray-900">
+                            Equipment:
+                          </h4>
+                          <ul className="list-disc pl-5">
+                            {data.equipment.map((item, index) => (
+                              <li key={index} className="text-xs text-gray-700">
+                                {item.name} ({item.quantity}):{" "}
+                                {item.description}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
+
                       <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center border-gray-100 flex-col">
                           <div className="flex items-center rounded-lg bg-blue-500 px-2 py-1">
@@ -214,7 +302,7 @@ function ClientFacilityList() {
           </p>
           <p>General Information</p>
           <p>Phone:(807)938-6534</p>
-          <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+          <p>Address:Box 730, 479 Government Street Dryden, ONP8N 2Z4</p>
         </footer>
       </div>
       {showModal && (
@@ -250,6 +338,28 @@ function ClientFacilityList() {
                       <p className="text-sm text-gray-500">
                         {selectedFacility.description}
                       </p>
+                      <p className="text-sm text-gray-500">
+                        Location: {selectedFacility.location}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Capacity: {selectedFacility.capacity}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Visitors allowed: {selectedFacility.visitors.min} -{" "}
+                        {selectedFacility.visitors.max}
+                      </p>
+                      <div className="mt-4">
+                        <h4 className="text-sm font-semibold text-gray-900">
+                          Equipment:
+                        </h4>
+                        <ul className="list-disc pl-5">
+                          {selectedFacility.equipment.map((item, index) => (
+                            <li key={index} className="text-sm text-gray-500">
+                              {item.name} ({item.quantity}): {item.description}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -279,7 +389,7 @@ function ClientFacilityList() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
+                        d="M6 18L18 6M66l12 12"
                       />
                     </svg>
                   </button>
@@ -289,6 +399,7 @@ function ClientFacilityList() {
           </div>
         </div>
       )}
+
       {showEditModal && (
         <EditFacilityModal
           show={showEditModal}
@@ -296,6 +407,73 @@ function ClientFacilityList() {
           facility={facilityToEdit}
           onUpdate={handleUpdate}
         />
+      )}
+
+      {showDeleteModal && (
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div
+              className="fixed inset-0 transition-opacity"
+              aria-hidden="true"
+            >
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <div className="mt-16 sm:mt-0">
+              <div
+                className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-headline"
+              >
+                <div className="mt-3 text-center sm:mt-5">
+                  <h3
+                    className="text-lg leading-6 font-medium text-gray-900"
+                    id="modal-headline"
+                  >
+                    Are you sure you want to delete this facility?
+                  </h3>
+                </div>
+                <div className="mt-5 sm:mt-6 flex justify-center">
+                  <button
+                    onClick={handleConfirmDelete}
+                    className="bg-red-600 text-white font-bold py-2 px-4 mr-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() => setShowDeleteModal(false)}
+                    className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+
+                <div className="absolute top-0 right-0 m-4">
+                  <button
+                    onClick={() => setShowDeleteModal(false)}
+                    className="text-red-500 hover:text-red-700 focus:outline-none"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

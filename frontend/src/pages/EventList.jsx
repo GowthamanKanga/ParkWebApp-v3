@@ -366,9 +366,6 @@ function EventList() {
                     </button>
                   </div>
                   <div className="flex flex-col w-full md:w-3/4 p-10">
-                  <div className="text-xl font-bold text-gray-800">
-                      
-                    </div>
                     <div className="text-xl font-bold text-gray-800">
                       {event.name}
                     </div>

@@ -2,55 +2,49 @@ import { useState } from "react";
 import EventTicket from "../pages/EventTicket";
 import { useNavigate } from "react-router-dom";
 import AddEventForm from "./AddEventForm";
-import EditEventForm from "./EditEventForm"; // Add this import
+import EditEventForm from "./EditEventForm"; 
 
 //import DeniedForm from "./DeniedForm";
 
 const mockData = [
   {
-    totalTickets: 1000,
-    ticketsLeft: 250,
-    id: 1,
     image:
       "https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-    month: "Jan",
-    date: "01",
     name: "New Year's Day Celebration",
-    startTime: "12:00 PM",
-    endTime: "3:00 PM",
+    date: "2022-01-01",
+    time: "12:00 PM - 3:00 PM",
     location: "Central Park",
     description:
       "Ring in the new year with live music, fireworks, and a countdown to midnight. Food and drinks will be available for purchase. This event is free and open to the public.",
+    capacity: 1000,
+    price: 0,
+    bookings: [],
   },
   {
-    totalTickets: 500,
-    ticketsLeft: 100,
-    id: 2,
     image:
       "https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
-    month: "Feb",
-    date: "14",
     name: "Valentine's Day Concert",
-    startTime: "7:00 PM",
-    endTime: "10:00 PM",
+    date: "2022-02-14",
+    time: "7:00 PM - 10:00 PM",
     location: "Carnegie Hall",
     description:
       "Join us for a romantic evening of live music and songs of love. Special guest performers will be announced closer to the event date. Tickets are required and can be purchased online or at the box office.",
+    capacity: 500,
+    price: 0,
+    bookings: [],
   },
   {
-    totalTickets: 2000,
-    ticketsLeft: 750,
-    id: 3,
     image:
       "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
-    month: "Mar",
-    date: "17",
     name: "St. Patrick's Day Parade",
-    startTime: "11:00 AM",
-    endTime: "2:00 PM",
+    date: "2022-03-17",
+    time: "11:00 AM - 2:00 PM",
     location: "Fifth Avenue",
     description:
       "Don't miss the annual St. Patrick's Day parade in New York City. Watch as thousands of marchers, including Irish dancers, bagpipers, and bands, make their way up Fifth Avenue. The parade ends with a special ceremony at St. Patrick's Cathedral.",
+    capacity: 2000,
+    price: 0,
+    bookings: [],
   },
 ];
 
@@ -71,9 +65,6 @@ function ClientEventList() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedEvent, setEditedEvent] = useState(null);
 
-
-  
-
   const handleEditButtonClick = (event) => {
     setEditedEvent(event);
     setShowEditModal(true);
@@ -93,10 +84,15 @@ function ClientEventList() {
   };
 
   const handleDeleteEvent = (eventId) => {
-    const updatedEventsData = eventsData.filter(
-      (event) => event.id !== eventId
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this event?"
     );
-    setEventsData(updatedEventsData);
+    if (confirmDelete) {
+      const updatedEventsData = eventsData.filter(
+        (event) => event.id !== eventId
+      );
+      setEventsData(updatedEventsData);
+    }
   };
 
   const eventId = localStorage.getItem("eventId");
@@ -150,9 +146,6 @@ function ClientEventList() {
   return (
     <body className="bg-white">
       <EventTicket visible={ticketForm} Onclose={onClose} />
-      {/* nav code here  */}
-      {/* small div code here */}
-      {/* large div code here  */}
       <div className="h-screen bg-gray-100 flex px-0">
         <div className="w-1/3 p-6">
           <AddEventForm onEventSubmit={handleEventSubmit} />
@@ -193,6 +186,7 @@ function ClientEventList() {
                       >
                         Delete
                       </button>
+
                       <button
                         className="text-white bg-green-500 rounded-sm py-2 px-3 mt-2 w-32"
                         onClick={() => handleEditButtonClick(event)}

@@ -7,7 +7,7 @@ export default function EventTicket({ visible, Onclose }) {
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [errors, setErrors] = useState({});
-  const [number_Of_Tickets, setNumber_OfTicket] = useState("");
+  const [number_OfTicket, setNumber_OfTicket] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
@@ -20,7 +20,7 @@ export default function EventTicket({ visible, Onclose }) {
       newErrors.last_name = "Last name is required";
     }
 
-    if (!number_Of_Tickets) {
+    if (!number_OfTicket) {
       newErrors.number_OfTicket = "Number of tickets is required";
     }
 
@@ -34,8 +34,6 @@ export default function EventTicket({ visible, Onclose }) {
       const newErrors = validate();
       setErrors(newErrors);
 
-      let ticket_id = Math.floor(Math.random() * 1000000)
-
       if (Object.keys(newErrors).length === 0) {
         try {
           const response = await fetch("http://localhost:5501/tickets/add", {
@@ -46,9 +44,7 @@ export default function EventTicket({ visible, Onclose }) {
             body: JSON.stringify({
               first_name,
               last_name,
-              number_Of_Tickets,
-              ticket_id,
-
+              number_OfTicket,
             }),
           });
           console.log(response);
@@ -74,7 +70,7 @@ export default function EventTicket({ visible, Onclose }) {
         setIsSubmitting(false);
       }
     },
-    [first_name,last_name,number_Of_Tickets]
+    [first_name,last_name,number_OfTicket]
   );
 
 
@@ -167,9 +163,9 @@ export default function EventTicket({ visible, Onclose }) {
                   </label>
                   <input
                     type="number"
-                    name="number_Of_Tickets"
-                    id="number_Of_Tickets"
-                    value={number_Of_Tickets}
+                    name="number_OfTicket"
+                    id="number_OfTicket"
+                    value={number_OfTicket}
                     onChange={(e) => setNumber_OfTicket(e.target.value)}
                     placeholder="5"
                     min="0"

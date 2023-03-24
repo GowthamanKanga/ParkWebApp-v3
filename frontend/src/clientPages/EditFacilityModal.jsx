@@ -5,6 +5,9 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
   const [location, setLocation] = useState(facility.location);
   const [description, setDescription] = useState(facility.description);
   const [image, setImage] = useState(facility.image);
+  const [capacity, setCapacity] = useState(facility.capacity);
+  const [visitors, setVisitors] = useState(facility.visitors);
+  const [equipment, setEquipment] = useState(facility.equipment);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -14,6 +17,8 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
     if (!location) newErrors.location = "Location is required";
     if (!description) newErrors.description = "Description is required";
     if (!image) newErrors.image = "Image is required";
+    if (!capacity) newErrors.capacity = "Capacity is required";
+    if (!visitors) newErrors.visitors = "Visitors limits are required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -28,6 +33,9 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
       location,
       description,
       image,
+      capacity,
+      visitors,
+      equipment,
     });
     onClose();
   };
@@ -41,6 +49,12 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleEquipmentChange = (index, field, value) => {
+    const newEquipment = [...equipment];
+    newEquipment[index][field] = value;
+    setEquipment(newEquipment);
   };
 
   if (!show) {
@@ -57,15 +71,15 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
           aria-modal="true"
           aria-labelledby="modal-headline"
         >
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <h3
-                  className="text-lg leading-6 font-medium text-gray-900"
-                  id="modal-headline"
-                >
-                  Edit Facility
-                </h3>
-                <input
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <h3
+                className="text-lg leading-6 font-medium text-gray-900"
+                id="modal-headline"
+              >
+                Edit Facility
+              </h3>
+              <input
                   className={`w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
                     errors.name ? "border-red-500" : "border-gray-300"
                   }`}
@@ -114,23 +128,66 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                 {errors.image && (
                   <p className="text-red-500 text-sm">{errors.image}</p>
                 )}
-              </div>
-              <div className="mt-5 sm:mt-6 space-x-3">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={onClose}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            {/* Equipment list */}
+            <div className="mt-4">
+              <h4 className="text-sm font-semibold text-gray-900">
+                Equipment:
+              </h4>
+              {equipment.map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <input
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
+                    type="text"
+                    value={item.name}
+                    onChange={(e) =>
+                      handleEquipmentChange(index, "name", e.target.value)
+                    }
+                    placeholder="Equipment Name"
+                  />
+                  <input
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      handleEquipmentChange(index, "quantity", e.target.value)
+                    }
+                    placeholder="Quantity"
+                  />
+                  <input
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
+                    type="text"
+                    value={item.description}
+                    onChange={(e) =>
+                      handleEquipmentChange(
+                        index,
+                        "description",
+                        e.target.value
+                      )
+                    }
+                    placeholder="Description"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 sm:mt-6 space-x-3">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Save Changes
+              </button>
+              <button
+                onClick={onClose}
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
