@@ -3,7 +3,7 @@ const route = express.Router()
 const park = require('../models/park');
 const { verifytoken } = require('./func');
 
-route.post('/parks', verifytoken, async(req, res) => {
+route.post('/parks', /*verifytoken,*/ async(req, res) => {
     const newPark = req.body;
     if(JSON.stringify(newPark) == null || JSON.stringify(newPark) == '{}') {
         return res.status(400).send({
@@ -23,7 +23,7 @@ route.post('/parks', verifytoken, async(req, res) => {
 }
 });
 
-route.get('/parks', verifytoken, async(req, res) => {
+route.get('/parks', /*verifytoken,*/async(req, res) => {
     try {
         const parks = await park.find({})
         res.status(200).send(parks)

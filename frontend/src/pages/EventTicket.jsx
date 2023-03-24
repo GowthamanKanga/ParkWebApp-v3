@@ -7,7 +7,7 @@ export default function EventTicket({ visible, Onclose }) {
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [errors, setErrors] = useState({});
-  const [number_OfTicket, setNumber_OfTicket] = useState("");
+  const [number_Of_Tickets, setNumber_OfTicket] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
@@ -20,7 +20,7 @@ export default function EventTicket({ visible, Onclose }) {
       newErrors.last_name = "Last name is required";
     }
 
-    if (!number_OfTicket) {
+    if (!number_Of_Tickets) {
       newErrors.number_OfTicket = "Number of tickets is required";
     }
 
@@ -44,7 +44,7 @@ export default function EventTicket({ visible, Onclose }) {
             body: JSON.stringify({
               first_name,
               last_name,
-              number_OfTicket,
+              number_Of_Tickets,
             }),
           });
           console.log(response);
@@ -70,7 +70,7 @@ export default function EventTicket({ visible, Onclose }) {
         setIsSubmitting(false);
       }
     },
-    [first_name,last_name,number_OfTicket]
+    [first_name,last_name,number_Of_Tickets]
   );
 
 
@@ -163,9 +163,9 @@ export default function EventTicket({ visible, Onclose }) {
                   </label>
                   <input
                     type="number"
-                    name="number_OfTicket"
-                    id="number_OfTicket"
-                    value={number_OfTicket}
+                    name="number_Of_Tickets"
+                    id="number_Of_Tickets"
+                    value={number_Of_Tickets}
                     onChange={(e) => setNumber_OfTicket(e.target.value)}
                     placeholder="5"
                     min="0"

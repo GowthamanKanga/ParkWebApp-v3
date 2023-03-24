@@ -5,15 +5,13 @@ const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
 
 
-    facilities: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'facilityModel',
+    facility: {
+        type: String,
         required: true
       },
 
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
 
@@ -33,14 +31,6 @@ const bookingSchema = new Schema({
         type: String,
         required: true,
         // unique: true
-    },
-    equipment: {
-        name: {
-            type: String,
-        },
-        quantity: {
-            type: Number
-        }
     }
 
 })
