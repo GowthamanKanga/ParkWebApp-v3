@@ -47,7 +47,8 @@ export default function EventTicket({ visible, Onclose }) {
               first_name,
               last_name,
               number_Of_Tickets,
-              ticket_id
+              ticket_id,
+
             }),
           });
           console.log(response);
