@@ -3,7 +3,7 @@ const route = express.Router()
 const event = require('../models/event');
 const { verifytoken } = require('./func');
 
-route.post('/events', verifytoken, async(req, res) => {
+route.post('/events', /*verifytoken,*/ async(req, res) => {
     const newEvent = req.body;
     if(JSON.stringify(newEvent) == null || JSON.stringify(newEvent) == '{}') {
         return res.status(400).send({
@@ -23,7 +23,7 @@ route.post('/events', verifytoken, async(req, res) => {
 }
 });
 
-route.get('/events', verifytoken, async(req, res) => {
+route.get('/events', /*verifytoken,*/ async(req, res) => {
     try {
         const events = await event.find({})
         res.status(200).send(events)
@@ -59,7 +59,7 @@ route.get('/events/search', verifytoken, async(req, res) => {
     }
 }
 });
-route.get('/events/date', verifytoken, async(req, res) => {
+route.get('/events/date', /*verifytoken,*/ async(req, res) => {
     let date = req.query.date
 
     if(JSON.stringify(date) == null || JSON.stringify(date) == '{}') {
@@ -77,7 +77,7 @@ route.get('/events/date', verifytoken, async(req, res) => {
     }
 }
 });
-route.get('/events/date-range', verifytoken, async(req, res) => {
+route.get('/events/date-range', /*verifytoken,*/ async(req, res) => {
     let start_date = req.query.start_date
     let end_date = req.query.end_date
 
@@ -99,7 +99,7 @@ route.get('/events/date-range', verifytoken, async(req, res) => {
 });
 
 
-route.get('/events/:id', verifytoken, async(req, res) => {
+route.get('/events/:id', /*verifytoken,*/ async(req, res) => {
 
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
@@ -120,7 +120,7 @@ route.get('/events/:id', verifytoken, async(req, res) => {
 });
 
 
-route.patch('/events/:id', verifytoken, async(req, res) => {
+route.patch('/events/:id', /*verifytoken,*/ async(req, res) => {
 
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
@@ -142,7 +142,7 @@ route.patch('/events/:id', verifytoken, async(req, res) => {
 });
 
 
-route.delete('/events/:id', verifytoken, async (req, res) => {
+route.delete('/events/:id', /*verifytoken,*/ async (req, res) => {
     // Validate request
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
@@ -164,5 +164,44 @@ route.delete('/events/:id', verifytoken, async (req, res) => {
       }
     }
 });
+app.post('/events/:eventId/purchase', /*verifytoken,*/ async (req, res) => {
+    try {
+      const { eventId } = req.params;
+      const { userId, numTickets } = req.body;
+  
+      // Find the event by id
+      const event = await Event.findById(eventId);
+  
+      if (!event) {
+        return res.status(404).json({ message: 'Event not found' });
+      }
+  
+      if (event.availableTickets < numTickets) {
+        return res.status(400).json({ message: 'Not enough tickets available' });
+      }
+  
+      const totalPrice = numTickets * event.ticketPrice;
+  
+      // Create a new ticket object
+      const ticket = new Ticket({
+        eventId,
+        userId,
+        numTickets,
+        totalPrice,
+      });
+  
+      // Save the ticket to the database
+      await ticket.save();
+  
+      // Update the availableTickets for the event
+      event.availableTickets -= numTickets;
+      await event.save();
+  
+      res.status(200).json({ message: 'Ticket purchased successfully' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
 module.exports = route
 

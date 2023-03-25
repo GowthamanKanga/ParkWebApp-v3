@@ -1,18 +1,22 @@
 const mongoose = require('mongoose')
 
 const ticketSchema = new mongoose.Schema({
-    first_name: {
-        type: String,
-        required: true
+  
+    event: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'eventModel',
+    required: true
     },
-    last_name: {
-        type: String,
-        required: true
+    purchase_date: {
+        type: Date,
+        default: Date.now
     },
-    number_Of_Tickets: {
+
+    bookedTickets: {
         type: Number,
-        required: true
-    },
+        required: true,
+
+       
     ticket_id: {
         type: Number,
         required: true,
