@@ -296,20 +296,6 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap">
-          <div className="w-full p-10">
-            <div className="bg-white p-10 rounded-lg shadow-lg">
-              <h2 className="text-3xl font-bold mb-5">Location</h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-10">
-                Toronto Island Park is located in Toronto, Ontario, Canada. It
-                is accessible by ferry from the mainland and is a popular
-                destination for locals and tourists alike. The park is a short
-                ferry ride from the heart of the city and offers a relaxing
-                escape from the hustle and bustle of downtown.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
       <footer className="bg-gray-900 p-10 text-white text-center">
         <p>

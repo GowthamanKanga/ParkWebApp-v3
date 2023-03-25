@@ -5,15 +5,20 @@ const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
 
 
-    facilities: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'facilityModel',
+    facility: {
+        type: String,
         required: true
       },
 
+      booking_id: {
+        type: Number,
+        required: true,
+        unique: true,
+        default: Math.floor(Math.random() * 1000000) // generate a random number between 0 and 999999
+    },
+
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
 
@@ -33,14 +38,6 @@ const bookingSchema = new Schema({
         type: String,
         required: true,
         // unique: true
-    },
-    equipment: {
-        name: {
-            type: String,
-        },
-        quantity: {
-            type: Number
-        }
     }
 
 })
