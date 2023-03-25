@@ -3,7 +3,7 @@ const route = express.Router()
 const amentity = require('../models/amentity');
 const { verifytoken } = require('./func');
 
-route.post('/amenities', verifytoken, async(req, res) => {
+route.post('/amenities', /*verifytoken,*/ async(req, res) => {
     const newAmentity = req.body;
     if(JSON.stringify(newAmentity) == null || JSON.stringify(newAmentity) == '{}') {
         return res.status(400).send({
@@ -23,7 +23,7 @@ route.post('/amenities', verifytoken, async(req, res) => {
 }
 });
 
-route.get('/amenities', verifytoken, async(req, res) => {
+route.get('/amenities', /*verifytoken,*/ async(req, res) => {
     try {
         const amentities = await amentity.find({})
         res.status(200).send(amentities)
@@ -32,7 +32,7 @@ route.get('/amenities', verifytoken, async(req, res) => {
         res.status(500).send(error)
     }
 });
-route.get('/amenities/search', verifytoken, async(req, res) => {
+route.get('/amenities/search', /*verifytoken,*/ async(req, res) => {
     let keyword = req.query.keyword.trim()
 
     if(JSON.stringify(keyword) == null || JSON.stringify(keyword) == '{}') {
@@ -61,7 +61,7 @@ route.get('/amenities/search', verifytoken, async(req, res) => {
 });
 
 
-route.get('/amenities/:id', verifytoken, async(req, res) => {
+route.get('/amenities/:id', /*verifytoken,*/ async(req, res) => {
 
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
@@ -82,7 +82,7 @@ route.get('/amenities/:id', verifytoken, async(req, res) => {
 });
 
 
-route.patch('/amenities/:id', verifytoken, async(req, res) => {
+route.patch('/amenities/:id', /*verifytoken,*/ async(req, res) => {
 
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
@@ -104,7 +104,7 @@ route.patch('/amenities/:id', verifytoken, async(req, res) => {
 });
 
 
-route.delete('/amenities/:id', verifytoken, async (req, res) => {
+route.delete('/amenities/:id', /*verifytoken,*/ async (req, res) => {
     // Validate request
     let id = req.params.id
     if(JSON.stringify(id) == null || JSON.stringify(id) == '{}') {
