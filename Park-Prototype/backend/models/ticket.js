@@ -11,13 +11,6 @@ const ticketSchema = new mongoose.Schema({
     ref: 'eventModel',
     required: true
     },
-    park: {
-        type: mongoose.Schema.Types.ObjectId,
-    ref: 'parkModel',
-    required: true
-    },
-    
-    
     purchase_date: {
         type: Date,
         default: Date.now
@@ -28,11 +21,6 @@ const ticketSchema = new mongoose.Schema({
         required: true,
 
         
-    },
-    purchasedTickets: {
-        type: Number,
-        required: true,
-
     }
 
 })

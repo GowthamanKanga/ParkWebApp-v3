@@ -9,7 +9,8 @@ const eventSchema = new Schema({
 
     park: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'parkModel'
     },
 
     image: {
@@ -17,7 +18,8 @@ const eventSchema = new Schema({
       required: true
     },
     start_time: {type: String, required: true},
-    end_time: {type: String, required: true}
+    end_time: {type: String, required: true},
+    availableTickets: { type: Number, required: true }
 
 })
 
