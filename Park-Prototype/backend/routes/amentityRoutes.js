@@ -32,7 +32,7 @@ route.get('/amenities', /*verifytoken,*/ async(req, res) => {
         res.status(500).send(error)
     }
 });
-route.get('/amenities/search', /*verifytoken, */ async(req, res) => {
+route.get('/amenities/search', /*verifytoken,*/ async(req, res) => {
     let keyword = req.query.keyword.trim()
 
     if(JSON.stringify(keyword) == null || JSON.stringify(keyword) == '{}') {
