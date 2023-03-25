@@ -16,7 +16,7 @@ const ticketSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    totalOfTickets: {
+    bookedTickets: {
         type: Number,
         required: true,
 
