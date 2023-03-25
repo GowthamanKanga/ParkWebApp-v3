@@ -23,11 +23,9 @@ route.post('/parks', /*verifytoken,*/ async(req, res) => {
 }
 });
 
-<<<<<<< HEAD
-route.get('/parks', /*verifytoken,*/ async(req, res) => {
-=======
+
 route.get('/parks', /*verifytoken,*/async(req, res) => {
->>>>>>> 917d50c000136f48f7e642b36d0d9c5fc326aa3c
+
     try {
         const parks = await park.find({})
         res.status(200).send(parks)
