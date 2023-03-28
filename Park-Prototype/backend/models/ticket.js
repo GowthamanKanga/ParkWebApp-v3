@@ -3,9 +3,10 @@ const mongoose = require('mongoose')
 const ticketSchema = new mongoose.Schema({
   
     event: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'eventModel',
-    required: true
+    type: Number,
+    required: true,
+        unique: true,
+        default: Math.floor(Math.random() * 1000000)
     },
     purchase_date: {
         type: Date,
