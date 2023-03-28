@@ -164,7 +164,7 @@ route.delete('/events/:id', /*verifytoken,*/ async (req, res) => {
       }
     }
 });
-app.post('/events/:eventId/purchase', /*verifytoken,*/ async (req, res) => {
+route.post('/events/:eventId/purchase', /*verifytoken,*/ async (req, res) => {
     try {
       const { eventId } = req.params;
       const { userId, numTickets } = req.body;
