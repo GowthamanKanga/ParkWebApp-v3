@@ -2,12 +2,7 @@ const mongoose = require('mongoose')
 
 const ticketSchema = new mongoose.Schema({
   
-    event: {
-    type: Number,
-    required: true,
-        unique: true,
-        default: Math.floor(Math.random() * 1000000)
-    },
+
     purchase_date: {
         type: Date,
         default: Date.now
@@ -15,9 +10,8 @@ const ticketSchema = new mongoose.Schema({
 
     bookedTickets: {
         type: Number,
-        required: true,
-
-       
+        required: true
+    }, 
     ticket_id: {
         type: Number,
         required: true,
