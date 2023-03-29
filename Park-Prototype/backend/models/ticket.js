@@ -1,14 +1,12 @@
 const mongoose = require('mongoose')
 
 const ticketSchema = new mongoose.Schema({
-  
-  event: {
-    type: Number,
-        required: true,
+    event: {
+        type: Number,
         unique: true,
+        required: true,
         default: Math.floor(Math.random() * 1000000)
-  },
-
+    },
     purchase_date: {
         type: Date,
         default: Date.now
@@ -24,6 +22,11 @@ const ticketSchema = new mongoose.Schema({
         unique: true,
         default: Math.floor(Math.random() * 1000000) // generate a random number between 0 and 999999
     },
+    /*event: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'eventModel'
+        },*/
     first_name : {
      type: String,
       required: true
