@@ -26,7 +26,7 @@ const ticketSchema = new mongoose.Schema({
     /*event: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'ticketModel'
+        ref: 'eventModel'
     }
     */
 })
