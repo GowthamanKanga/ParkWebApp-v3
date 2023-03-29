@@ -21,7 +21,11 @@ const bookingSchema = new Schema({
         type: String,
         required: true
     },
-
+    /*user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },*/
     booking_date: {type: Date, default: Date.now},
     amount_of_guests: {
         type: Number,
