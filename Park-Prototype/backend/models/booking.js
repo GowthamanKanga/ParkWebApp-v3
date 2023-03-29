@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
 
-
+  /*  facilities: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'amentityModel',
+        required: true
+      }],
+*/
     facility: {
         type: String,
         required: true
