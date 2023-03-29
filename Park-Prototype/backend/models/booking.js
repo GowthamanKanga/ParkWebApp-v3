@@ -32,12 +32,12 @@ const bookingSchema = new Schema({
     start_time: {
         type: String,
         required: true,
-        // unique: true
+        unique: true
     },
     end_time: {
         type: String,
         required: true,
-        // unique: true
+        unique: true
     }
 
 })
