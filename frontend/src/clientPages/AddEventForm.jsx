@@ -77,13 +77,13 @@ const AddEventForm = ({ onEventSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="bg-white p-5">
       <h2 className="text-xl font-bold mb-4">Add Event</h2>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Month
         <select
           name="month"
           value={eventData.month}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         >
           <option value="">Select a month</option>
           <option value="Jan">Jan</option>
@@ -101,7 +101,7 @@ const AddEventForm = ({ onEventSubmit }) => {
         </select>
       </label>
 
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Date
         <input
           type="number"
@@ -110,60 +110,60 @@ const AddEventForm = ({ onEventSubmit }) => {
           name="date"
           value={eventData.date}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Name
         <input
           type="text"
           name="name"
           value={eventData.name}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Start Time
         <input
           type="time"
           name="startTime"
           value={eventData.startTime}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         End Time
         <input
           type="time"
           name="endTime"
           value={eventData.endTime}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Location
         <input
           type="text"
           name="location"
           value={eventData.location}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-4">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Description
         <textarea
           name="description"
           value={eventData.description}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
           rows="4"
         ></textarea>
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Total Tickets
         <input
           type="number"
@@ -171,10 +171,10 @@ const AddEventForm = ({ onEventSubmit }) => {
           name="totalTickets"
           value={eventData.totalTickets}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
+      <label className="mb-3 block text-base font-medium text-gray-800">
         Tickets Left
         <input
           type="number"
@@ -182,7 +182,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           name="ticketsLeft"
           value={eventData.ticketsLeft}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mt-1"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
       <label className="block mb-2">
@@ -191,7 +191,7 @@ const AddEventForm = ({ onEventSubmit }) => {
     type="file"
     name="image"
     onChange={handleImageChange}
-    className="border border-gray-300 p-2 w-full mt-1"
+    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
   />
   <img id="image-preview" src="" alt="" />
 </label>
@@ -199,7 +199,7 @@ const AddEventForm = ({ onEventSubmit }) => {
 
       <button
         type="submit"
-        className="bg-blue-500 text-white font-bold px-4 py-2 rounded"
+        className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
       >
         Add Event
       </button>

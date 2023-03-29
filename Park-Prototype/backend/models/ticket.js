@@ -7,7 +7,6 @@ const ticketSchema = new mongoose.Schema({
         required: true,
         default: Math.floor(Math.random() * 1000000)
     },
-
     purchase_date: {
         type: Date,
         default: Date.now
@@ -27,8 +26,15 @@ const ticketSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'eventModel'
+        },*/
+    first_name : {
+     type: String,
+      required: true
+    },
+  last_name : {
+     type: String,
+      required: true
     }
-    */
 })
 
 
