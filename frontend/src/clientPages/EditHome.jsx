@@ -296,13 +296,13 @@ const EditHome = () => {
         {activeSection === 5 && (
           <div className="mb-6">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="mb-3 block text-base font-medium text-gray-800"
               htmlFor="background-image"
             >
               Background Image
             </label>
             <input
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+              className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
               id="background-image"
               type="file"
               accept="image/*"
@@ -315,13 +315,13 @@ const EditHome = () => {
             {
               <div className="mb-6">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="mb-3 block text-base font-medium text-gray-800"
                   htmlFor="park-title"
                 >
                   Title
                 </label>
                 <input
-                  className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                  className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                   id="park-title"
                   type="text"
                   value={newTitle}
@@ -337,13 +337,13 @@ const EditHome = () => {
               <div>
                 {" "}
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="mb-3 block text-base font-medium text-gray-800"
                   htmlFor="events-textarea"
                 >
                   Events & Programs
                 </label>
                 <textarea
-                  className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                  className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                   id="events-textarea"
                   rows="5"
                   value={newEventsText}
@@ -358,13 +358,13 @@ const EditHome = () => {
             {
               <div className="mb-6">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="mb-3 block text-base font-medium text-gray-800"
                   htmlFor="about-textarea"
                 >
                   About Us
                 </label>
                 <textarea
-                  className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                  className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                   id="about-textarea"
                   rows="5"
                   value={newAboutText}
@@ -379,13 +379,13 @@ const EditHome = () => {
             {
               <div className="mb-6">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="mb-3 block text-base font-medium text-gray-800"
                   htmlFor="park-info"
                 >
                   Info
                 </label>
                 <textarea
-                  className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                  className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                   id="park-info"
                   rows="5"
                   value={newInfo.join("\n")}
@@ -402,7 +402,7 @@ const EditHome = () => {
             {
               <div className="mb-6">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="mb-3 block text-base font-medium text-gray-800"
                   htmlFor="park-hours"
                 >
                   Hours
@@ -410,7 +410,7 @@ const EditHome = () => {
                 {newHours.map((item, index) => (
                   <div key={index} className="flex mb-2">
                     <input
-                      className="w-1/2 px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                      className="form-control w-1/2 rounded-md border border-[] bg-white py-3 px-2 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
                       type="text"
                       value={item.day}
                       onChange={(event) => {
@@ -436,16 +436,16 @@ const EditHome = () => {
           </div>
         )}
 
-        <div className="mb-6">
+        <div className="flex max-w-[200px] mx-auto justify-between">
           <button
-            className="bg-gray-900 text-white text-lg font-semibold py-2 px-4 rounded-full"
+            className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
             onClick={handlePreviousSection}
             disabled={activeSection === 0}
           >
             Previous
           </button>
           <button
-            className="bg-gray-900 text-white text-lg font-semibold py-2 px-4 rounded-full"
+            className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
             onClick={handleNextSection}
             disabled={activeSection === sectionList.length - 1}
           >
