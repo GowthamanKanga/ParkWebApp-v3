@@ -9,6 +9,23 @@ const mockData = [
     image: "https://via.placeholder.com/150",
     description:
       "A playground with swings, slides and monkey bars for children to play on.",
+    capacity: 25,
+    equipment: [
+      {
+        name: "Swing",
+        quantity: 4,
+        description: "Metal swings with rubber seats",
+      },
+      {
+        name: "Slide",
+        quantity: 2,
+        description: "Plastic slides for children",
+      },
+    ],
+    visitors: {
+      max: 30,
+      min: 5,
+    },
   },
   {
     id: 2,
@@ -16,6 +33,23 @@ const mockData = [
     location: "Area 2",
     image: "https://via.placeholder.com/150",
     description: "A full-size tennis court with lights for evening play.",
+    capacity: 4,
+    equipment: [
+      {
+        name: "Tennis Racket",
+        quantity: 4,
+        description: "Standard tennis rackets for adults",
+      },
+      {
+        name: "Tennis Ball",
+        quantity: 12,
+        description: "Standard tennis balls",
+      },
+    ],
+    visitors: {
+      max: 10,
+      min: 2,
+    },
   },
   {
     id: 3,
@@ -23,27 +57,23 @@ const mockData = [
     location: "Area 3",
     image: "https://via.placeholder.com/150",
     description: "A regulation-size basketball court with adjustable hoops.",
-  },
-  {
-    id: 4,
-    name: "Soccer Field",
-    location: "Area 4",
-    image: "https://via.placeholder.com/150",
-    description: "A regulation-size Soccer Field with adjustable goals.",
-  },
-  {
-    id: 5,
-    name: "Soccer Field",
-    location: "Area 5",
-    image: "https://via.placeholder.com/150",
-    description: "A regulation-size Soccer Field with adjustable goals.",
-  },
-  {
-    id: 6,
-    name: "Soccer Field",
-    location: "Area 6",
-    image: "https://via.placeholder.com/150",
-    description: "A regulation-size Soccer Field with adjustable goals.",
+    capacity: 10,
+    equipment: [
+      {
+        name: "Basketball",
+        quantity: 4,
+        description: "Regulation-size basketballs",
+      },
+      {
+        name: "Hoop",
+        quantity: 2,
+        description: "Adjustable basketball hoops",
+      },
+    ],
+    visitors: {
+      max: 20,
+      min: 2,
+    },
   },
 ];
 
@@ -299,7 +329,7 @@ function EditFacilityList() {
                       className="w-full rounded-lg sm:w-40"
                     />
                     <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                      <div className="mt-5 sm:mt-0">
+                    <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold text-gray-900">
                           {data.name}
                         </h2>
@@ -309,6 +339,26 @@ function EditFacilityList() {
                         <p className="mt-1 text-xs text-gray-700">
                           {data.description}
                         </p>
+                        <p className="mt-1 text-xs text-gray-700">
+                          Capacity: {data.capacity}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-700">
+                          Visitors allowed: {data.visitors.min} -{" "}
+                          {data.visitors.max}
+                        </p>
+                        <div className="mt-2">
+                          <h4 className="text-xs font-semibold text-gray-900">
+                            Equipment:
+                          </h4>
+                          <ul className="list-disc pl-5">
+                            {data.equipment.map((item, index) => (
+                              <li key={index} className="text-xs text-gray-700">
+                                {item.name} ({item.quantity}):{" "}
+                                {item.description}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                       <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center border-gray-100 flex-col">
@@ -360,8 +410,8 @@ function EditFacilityList() {
         </footer>
       </div>
       {showModal && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed z-30 inset-0 overflow-y-auto">
+        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
@@ -396,8 +446,11 @@ function EditFacilityList() {
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 flex justify-center">
-                  <button
-                    onClick={() => setBookingForm(true)}
+                <button
+                    onClick={() => {
+                      setBookingForm(true);
+                      setShowModal(false);
+                    }}
                     className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                   >
                     Open Booking Form
@@ -430,8 +483,10 @@ function EditFacilityList() {
             </div>
           </div>
         </div>
+        
       )}
     </div>
+    
   );
 }
 

@@ -16,7 +16,6 @@ function AddFacilityForm({ onAdd }) {
   });
 
   const [error, setError] = useState("");
-  
 
   const handleEquipmentChange = (index, name, value) => {
     const updatedEquipment = [...facilityData.equipment];
@@ -58,7 +57,7 @@ function AddFacilityForm({ onAdd }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     if (!facilityData.name) {
       setError("Please enter the facility name.");
       return;
@@ -83,11 +82,15 @@ function AddFacilityForm({ onAdd }) {
       setError("Please enter both minimum and maximum number of visitors.");
       return;
     }
-    if (facilityData.equipment.some(item => !item.name || !item.quantity || !item.description)) {
+    if (
+      facilityData.equipment.some(
+        (item) => !item.name || !item.quantity || !item.description
+      )
+    ) {
       setError("Please fill in all the equipment fields.");
       return;
     }
-  
+
     onAdd(facilityData);
     setFacilityData({
       name: "",
@@ -103,7 +106,6 @@ function AddFacilityForm({ onAdd }) {
     });
     setError("");
   };
-  
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-md">
@@ -115,7 +117,10 @@ function AddFacilityForm({ onAdd }) {
       )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="name" className="mb-3 block text-base font-medium text-gray-800">
+          <label
+            htmlFor="name"
+            className="mb-3 block text-base font-medium text-gray-800"
+          >
             Name
           </label>
           <input
@@ -123,11 +128,14 @@ function AddFacilityForm({ onAdd }) {
             name="name"
             value={facilityData.name}
             onChange={handleChange}
-            className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+            className="form-control w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-800 outline-none focus:border-gray-900 focus:shadow-md"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="location" className="mb-3 block text-base font-medium text-gray-800">
+          <label
+            htmlFor="location"
+            className="mb-3 block text-base font-medium text-gray-800"
+          >
             Location
           </label>
           <input
@@ -135,11 +143,14 @@ function AddFacilityForm({ onAdd }) {
             name="location"
             value={facilityData.location}
             onChange={handleChange}
-            className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+            className="form-control w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-800 outline-none focus:border-gray-900 focus:shadow-md"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="image" className="mb-3 block text-base font-medium text-gray-800">
+          <label
+            htmlFor="image"
+            className="mb-3 block text-base font-medium text-gray-800"
+          >
             Background Image
           </label>
           <input
@@ -147,12 +158,19 @@ function AddFacilityForm({ onAdd }) {
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
+<<<<<<< HEAD
+            className="form-control w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-800 outline-none focus:border-gray-900 focus:shadow-md"
+=======
             className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline"
+>>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="description" className="mb-3 block text-base font-medium text-gray-800">
+          <label
+            htmlFor="description"
+            className="mb-3 block text-base font-medium text-gray-800"
+          >
             Description
           </label>
           <textarea
@@ -164,7 +182,10 @@ function AddFacilityForm({ onAdd }) {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="capacity" className="mb-3 block text-base font-medium text-gray-800">
+          <label
+            htmlFor="capacity"
+            className="mb-3 block text-base font-medium text-gray-800"
+          >
             Capacity
           </label>
           <input
@@ -177,7 +198,9 @@ function AddFacilityForm({ onAdd }) {
         </div>
 
         <div className="mb-4">
-          <label className="mb-3 block text-base font-medium text-gray-800">Visitors</label>
+          <label className="mb-3 block text-base font-medium text-gray-800">
+            Visitors
+          </label>
           <div className="flex space-x-2">
             <input
               type="number"
@@ -209,7 +232,9 @@ function AddFacilityForm({ onAdd }) {
         </div>
 
         <div className="mb-4">
-          <label className="mb-3 block text-base font-medium text-gray-800">Equipment</label>
+          <label className="mb-3 block text-base font-medium text-gray-800">
+            Equipment
+          </label>
           {facilityData.equipment.map((item, index) => (
             <div key={index} className="grid grid-cols-3 gap-4 mb-4">
               <input
@@ -252,8 +277,6 @@ function AddFacilityForm({ onAdd }) {
             Add Equipment
           </button>
         </div>
-
-
 
         <button
           type="submit"

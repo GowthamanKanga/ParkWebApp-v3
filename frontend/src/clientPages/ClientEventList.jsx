@@ -2,12 +2,13 @@ import { useState } from "react";
 import EventTicket from "../pages/EventTicket";
 import { useNavigate } from "react-router-dom";
 import AddEventForm from "./AddEventForm";
-import EditEventForm from "./EditEventForm"; 
+import EditEventForm from "./EditEventForm";
 
 //import DeniedForm from "./DeniedForm";
 
 const mockData = [
   {
+    id: 1,
     image:
       "https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     name: "New Year's Day Celebration",
@@ -21,6 +22,7 @@ const mockData = [
     bookings: [],
   },
   {
+    id: 2,
     image:
       "https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
     name: "Valentine's Day Concert",
@@ -34,6 +36,7 @@ const mockData = [
     bookings: [],
   },
   {
+    id: 3,
     image:
       "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
     name: "St. Patrick's Day Parade",
@@ -64,6 +67,7 @@ function ClientEventList() {
   const totalPages = Math.ceil(eventsData.length / eventsPerPage);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedEvent, setEditedEvent] = useState(null);
+  const [showAddEventModal, setShowAddEventModal] = useState(false);
 
   const handleEditButtonClick = (event) => {
     setEditedEvent(event);
@@ -81,19 +85,21 @@ function ClientEventList() {
     const id = Math.max(...eventsData.map((e) => e.id)) + 1;
     const updatedEvent = { ...newEvent, id };
     setEventsData([...eventsData, updatedEvent]);
-  };
+  };;
 
   const handleDeleteEvent = (eventId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this event?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
     if (confirmDelete) {
-      const updatedEventsData = eventsData.filter(
-        (event) => event.id !== eventId
-      );
+      const updatedEventsData = eventsData.filter((event) => event.id !== eventId);
       setEventsData(updatedEventsData);
+  
+      if (indexOfLastEvent > updatedEventsData.length && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
     }
   };
+  
+  
 
   const eventId = localStorage.getItem("eventId");
 
@@ -147,12 +153,17 @@ function ClientEventList() {
     <body className="bg-white">
       <EventTicket visible={ticketForm} Onclose={onClose} />
       <div className="h-screen bg-gray-100 flex px-0">
-        <div className="w-1/3 p-6">
-          <AddEventForm onEventSubmit={handleEventSubmit} />
-        </div>
-        <div className="w-2/3">
+        <div className="w-full">
           <div className="h-screen bg-gray-100 flex items-center justify-center px-0">
+            <div className="flex justify-center py-4"></div>
             <div className="event-card">
+              <button
+                className="text-white bg-blue-500 rounded py-2 px-4 m-3"
+                onClick={() => setShowAddEventModal(true)}
+              >
+                Add Event
+              </button>
+
               {currentEvents.map((event) => (
                 <div key={event.id}>
                   <div
@@ -238,6 +249,11 @@ function ClientEventList() {
             </div>
           </div>
         </div>
+        {showAddEventModal && (
+          <Modal onClose={() => setShowAddEventModal(false)}>
+            <AddEventForm onEventSubmit={handleEventSubmit} />
+          </Modal>
+        )}
         {showEditModal && (
           <Modal onClose={() => setShowEditModal(false)}>
             <EditEventForm

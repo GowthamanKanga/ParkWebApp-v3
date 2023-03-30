@@ -12,6 +12,8 @@ import EditHome from "./clientPages/EditHome";
 import EditFacilityList from "./clientPages/ClientFacilityList";
 import ClientEventList from "./clientPages/ClientEventList";
 import ClientMap from "./clientPages/ClientMap";
+import ParkForm from "./pageCreation/parkForm";
+import BookingForm from "./pages/BookingForm";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
           <Route path="/EditFacilityList" element={<EditFacilityList />} />
           <Route path="/ClientEventList" element={<ClientEventList />} />
           <Route path="/ClientMap" element={<ClientMap />} />
+          <Route path="/ParkForm" element={<ParkForm />} />
+          <Route path="/BookingForm" element={<BookingForm/>}/>
         </Routes>
       </Router>
     </>

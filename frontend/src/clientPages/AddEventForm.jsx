@@ -75,9 +75,10 @@ const AddEventForm = ({ onEventSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-5">
-      <h2 className="text-xl font-bold mb-4">Add Event</h2>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+<form onSubmit={handleSubmit} className="bg-white p-4">
+      <h2 className="text-lg font-bold mb-2">Add Event</h2>
+      <div className="grid grid-cols-2 gap-3">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Month
         <select
           name="month"
@@ -101,7 +102,7 @@ const AddEventForm = ({ onEventSubmit }) => {
         </select>
       </label>
 
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Date
         <input
           type="number"
@@ -113,7 +114,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Name
         <input
           type="text"
@@ -123,7 +124,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Start Time
         <input
           type="time"
@@ -133,7 +134,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         End Time
         <input
           type="time"
@@ -143,7 +144,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Location
         <input
           type="text"
@@ -153,7 +154,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Description
         <textarea
           name="description"
@@ -163,7 +164,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           rows="4"
         ></textarea>
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Total Tickets
         <input
           type="number"
@@ -174,7 +175,7 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="mb-3 block text-base font-medium text-gray-800">
+      <label className="mb-1 block text-sm font-medium text-gray-800">
         Tickets Left
         <input
           type="number"
@@ -185,24 +186,24 @@ const AddEventForm = ({ onEventSubmit }) => {
           className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
       </label>
-      <label className="block mb-2">
-  Image
-  <input
-    type="file"
-    name="image"
-    onChange={handleImageChange}
-    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline"
-  />
-  <img id="image-preview" src="" alt="" />
-</label>
-
+      <label className="block mb-2 mt-3 text-sm font-medium text-gray-800">
+        Image
+        <input
+          type="file"
+          name="image"
+          onChange={handleImageChange}
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+        />
+        <img id="image-preview" src="" alt="" />
+      </label>
 
       <button
         type="submit"
-        className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+        className="mt-3 bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700"
       >
         Add Event
       </button>
+      </div>
     </form>
   );
 };
