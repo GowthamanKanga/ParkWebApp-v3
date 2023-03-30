@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Map, Marker, GoogleApiWrapper,InfoWindow } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react";
+import { Autocomplete } from "@react-google-maps/api";
 
 const parks = [
   {
@@ -12,39 +13,69 @@ const parks = [
 ];
 
 const ClientParkMap = ({ google }) => {
+  const [activeMarker, setActiveMarker] = useState(null);
+  const [showInfoWindow, setShowInfoWindow] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedPark, setSelectedPark] = useState(null);
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [autocomplete, setAutocomplete] = useState(null);
 
-    const [activeMarker, setActiveMarker] = useState(null);
-    const [showInfoWindow, setShowInfoWindow] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedPark, setSelectedPark] = useState(null);
-    const [lat, setLat] = useState(""); 
-    const [lng, setLng] = useState("");
+  const onOpenModal = () => {
+    setModalVisible(true);
+  };
 
+  const onEditButtonClick = () => {
+    setModalVisible(true);
+  };
 
-    const onEditButtonClick = () => {
-        setModalVisible(true);
-      };
-    
-      const onModalClose = () => {
-        setModalVisible(false);
-      };
-    
-      const onUpdateLocation = (lat, lng) => {
-        setSelectedPark((prevSelectedPark) => {
-          return { ...prevSelectedPark, lat: parseFloat(lat), lng: parseFloat(lng) };
+  const onModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const onUpdateLocation = (lat, lng) => {
+    if (selectedPark) {
+      const updatedParks = parks.map((park) => {
+        if (park.id === selectedPark.id) {
+          return { ...park, lat: parseFloat(lat), lng: parseFloat(lng) };
+        }
+        return park;
+      });
+      setSelectedPark(null);
+      setModalVisible(false);
+      setLat("");
+      setLng("");
+      setAutocomplete(null);
+      setAutocomplete(
+        new google.maps.places.Autocomplete(
+          document.getElementById("autocomplete")
+        )
+      );
+      setAutocomplete(null);
+      parks.forEach((park) => {
+        const marker = new google.maps.Marker({
+          position: { lat: park.lat, lng: park.lng },
+          map: mapRef.current.map,
+          title: park.name,
         });
-        onModalClose();
-      };
-  
-    const onMarkerClick = (markerProps, marker) => {
-      setActiveMarker(marker);
-      setShowInfoWindow(true);
-    };
-  
-    const onMapClick = () => {
-      setActiveMarker(null);
-      setShowInfoWindow(false);
-    };
+      });
+    }
+  };
+
+  const onMarkerClick = (markerProps, marker) => {
+    const park = parks.find((p) => p.name === markerProps.title);
+    setSelectedPark(park);
+    setActiveMarker(marker);
+    setShowInfoWindow(true);
+    setLat(park.lat);
+    setLng(park.lng);
+  };
+
+  const onMapClick = () => {
+    setActiveMarker(null);
+    setShowInfoWindow(false);
+  };
+
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -62,9 +93,18 @@ const ClientParkMap = ({ google }) => {
     });
   }, [google]);
 
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      const location = place.geometry.location;
+      setLat(location.lat());
+      setLng(location.lng());
+    }
+  };
+
   return (
     <div>
-            <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+                  <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
         <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
           <a href="/Home" className="flex items-center">
             <span className="self-center whitespace-nowrap text-xl font-semibold">
@@ -220,91 +260,114 @@ const ClientParkMap = ({ google }) => {
         </a>
       </div>
       <div className="flex flex-col h-screen">
-      <Map
-        className="flex-1"
-        google={google}
-        initialCenter={{ lat: 43.653208, lng: -79.463415 }}
-        onClick={onMapClick}
-        ref={mapRef}
-      >
-        {parks.map((park) => (
-          <Marker
-            key={park.id}
-            position={{ lat: park.lat, lng: park.lng }}
-            title={park.name}
-            onClick={onMarkerClick}
-          />
-        ))}
-        {activeMarker && showInfoWindow && (
-          <InfoWindow marker={activeMarker} visible={showInfoWindow}>
-            <div>
-              <h3>{activeMarker.getTitle()}</h3>
-              <p>Latitude: {activeMarker.getPosition().lat()}</p>
-              <p>Longitude: {activeMarker.getPosition().lng()}</p>
-            </div>
-          </InfoWindow>
-        )}
-      </Map>
-      <button onClick={onEditButtonClick}>Edit</button>
-      {modalVisible && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Edit Park Location</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                onUpdateLocation(lat, lng);
-              }}
-            >
-              <label className="block mb-2">
-                Latitude
-                <input
-                  type="text"
-                  value={lat}
-                  onChange={(e) => setLat(e.target.value)}
-                  className="border border-gray-300 p-2 w-full mt-1"
-                />
-              </label>
-              <label className="block mb-2">
-                Longitude
-                <input
-                  type="text"
-                  value={lng}
-                  onChange={(e) => setLng(e.target.value)}
-                  className="border border-gray-300 p-2 w-full mt-1"
-                />
-              </label>
-              <div className="flex justify-between items-center mt-4">
-                <button
-                  type="button"
-                  onClick={onModalClose}
-                  className="bg-gray-200 px-4 py-2 rounded"
-                >
-                  Close
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  Update
-                </button>
-              </div>
-            </form>
-          </div>
+        <div className="flex items-center justify-center h-16 z-10">
+          <button
+            onClick={onOpenModal}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Edit Park Location
+          </button>
         </div>
-      )}
-    </div>
+        <Map
+          className="flex-1"
+          google={google}
+          initialCenter={{ lat: 43.653208, lng: -79.463415 }}
+          onClick={onMapClick}
+          ref={mapRef}
+        >
+          {parks.map((park) => (
+            <Marker
+              key={park.id}
+              position={{ lat: park.lat, lng: park.lng }}
+              title={park.name}
+              onClick={onMarkerClick}
+            />
+          ))}
+          {activeMarker && showInfoWindow && (
+            <InfoWindow marker={activeMarker} visible={showInfoWindow}>
+              <div>
+                <h3>{activeMarker.getTitle()}</h3>
+                <p>Latitude: {activeMarker.getPosition().lat()}</p>
+                <p>Longitude: {activeMarker.getPosition().lng()}</p>
+                <button onClick={onEditButtonClick}>Edit</button>
+              </div>
+            </InfoWindow>
+          )}
+        </Map>
+        {modalVisible && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-white p-8 rounded shadow-lg">
+              <h2 className="text-xl font-bold mb-4">Edit Park Location</h2>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onUpdateLocation(lat, lng);
+                }}
+              >
+                <Autocomplete
+                  onLoad={(auto) => setAutocomplete(auto)}
+                  onPlaceChanged={onPlaceChanged}
+                >
+                  <label className="block mb-2">
+                    Search Location
+                    <input
+                      type="text"
+                      id="autocomplete"
+                      className="border border-gray-300 p-2 w-full mt-1"
+                    />
+                  </label>
+                </Autocomplete>
+
+                <label className="block mb-2">
+                  Latitude
+                  <input
+                    type="text"
+                    value={lat}
+                    onChange={(e) => setLat(e.target.value)}
+                    className="border border-gray-300 p-2 w-full mt-1"
+                  />
+                </label>
+                <label className="block mb-2">
+                  Longitude
+                  <input
+                    type="text"
+                    value={lng}
+                    onChange={(e) => setLng(e.target.value)}
+                    className="border border-gray-300 p-2 w-full mt-1"
+                  />
+                </label>
+                <div className="flex justify-between items-center mt-4">
+                  <button
+                    type="button"
+                    onClick={onModalClose}
+                    className="bg-gray-200 px-4 py-2 rounded"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
       <footer className="bg-gray-900 text-white py-10 text-center">
-          <p className="mb-4">
-            &copy; 2022 George Brown Company. All rights reserved.
-          </p>
-          <p className="mb-4">General Information</p>
-          <p className="mb-4">Phone: (807) 938-6534</p>
-          <p>Address: Box 730, 479 Government Street Dryden, ON P8N 2Z4</p>
-        </footer>
+        <p className="mb-4">
+          &copy; 2022 George Brown Company. All rights reserved.
+        </p>
+        <p className="mb-4">General Information</p>
+        <p className="mb-4">Phone: (807) 938-6534</p>
+        <p>Address: Box 730, 479 Government Street Dryden, ON P8N 2Z4</p>
+      </footer>
     </div>
   );
 };
+
 export default GoogleApiWrapper({
   apiKey: "AIzaSyCJBPJpIw3o9Oq2MOKz4JtudgaHnSwuIQs",
 })(ClientParkMap);
