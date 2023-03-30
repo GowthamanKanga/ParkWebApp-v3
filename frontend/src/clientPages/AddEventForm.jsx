@@ -199,7 +199,7 @@ const AddEventForm = ({ onEventSubmit }) => {
 
       <button
         type="submit"
-        className="mt-3 bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700"
+        className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
       >
         Add Event
       </button>

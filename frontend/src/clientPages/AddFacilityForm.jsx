@@ -158,11 +158,7 @@ function AddFacilityForm({ onAdd }) {
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-<<<<<<< HEAD
-            className="form-control w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-800 outline-none focus:border-gray-900 focus:shadow-md"
-=======
-            className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline"
->>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
+            className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
           />
         </div>
 

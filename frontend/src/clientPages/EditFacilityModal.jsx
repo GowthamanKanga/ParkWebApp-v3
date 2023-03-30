@@ -76,38 +76,15 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
           aria-labelledby="modal-headline"
         >
           <form onSubmit={handleSubmit}>
-<<<<<<< HEAD
-            <h3
-              className="text-xl font-semibold mb-6 text-gray-900"
-              id="modal-headline"
-            >
-              Edit Facility
-            </h3>
-
-            {/* Form fields */}
-            <div className="space-y-6">
-              {/* Facility Name */}
-              <div>
-                <label
-                  htmlFor="facilityName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Facility Name
-                </label>
-                <input
-                  id="facilityName"
-                  className={`mt-1 w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
-=======
             <div className="space-y-4">
               <h3
-                className="text-gray-800 text-3xl font-bold text-center mb-4"
+                className="text-lg leading-6 font-medium text-gray-900"
                 id="modal-headline"
               >
                 Edit Facility
               </h3>
               <input
-                  className={`form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-mde ${
->>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
+                  className={`w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
                     errors.name ? "border-red-500" : "border-gray-300"
                   }`}
                   type="text"
@@ -129,12 +106,7 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                   Location
                 </label>
                 <input
-<<<<<<< HEAD
-                  id="location"
-                  className={`mt-1 w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
-=======
-                  className={`form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md ${
->>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
+                  className={`w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
                     errors.location ? "border-red-500" : "border-gray-300"
                   }`}
                   type="text"
@@ -156,12 +128,7 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                   Description
                 </label>
                 <input
-<<<<<<< HEAD
-                  id="description"
-                  className={`mt-1 w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
-=======
-                  className={`form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md ${
->>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
+                  className={`w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline ${
                     errors.description ? "border-red-500" : "border-gray-300"
                   }`}
                   type="text"
@@ -196,65 +163,6 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                 )}
               </div>
 
-<<<<<<< HEAD
-              {/* Equipment list */}
-              <div className="mt-4">
-                <h4 className="text-sm font-semibold text-gray-900 mb-2">
-                  Equipment:
-                </h4>
-                {equipment.map((item, index) => (
-                  <div key={index} className="space-y-2">
-                    <input
-                      className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
-                      type="text"
-                      value={item.name}
-                      onChange={(e) =>
-                        handleEquipmentChange(index, "name", e.target.value)
-                      }
-                      placeholder="Equipment Name"
-                    />
-                    <input
-                      className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleEquipmentChange(index, "quantity", e.target.value)
-                      }
-                      placeholder="Quantity"
-                    />
-                    <input
-                      className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
-                      type="text"
-                      value={item.description}
-                      onChange={(e) =>
-                        handleEquipmentChange(
-                          index,
-                          "description",
-                          e.target.value
-                        )
-                      }
-                      placeholder="Description"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Buttons */}
-              <div className="mt-8 flex justify-end space-x-3">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={onClose}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                >
-                  Cancel
-                </button>
-              </div>
-=======
             {/* Equipment list */}
             <div className="mt-4">
               <h4 className="text-sm font-semibold text-gray-900">
@@ -263,7 +171,7 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
               {equipment.map((item, index) => (
                 <div key={index} className="space-y-2">
                   <input
-                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
                     type="text"
                     value={item.name}
                     onChange={(e) =>
@@ -272,7 +180,7 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                     placeholder="Equipment Name"
                   />
                   <input
-                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
                     type="number"
                     value={item.quantity}
                     onChange={(e) =>
@@ -281,7 +189,7 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
                     placeholder="Quantity"
                   />
                   <input
-                    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
+                    className="w-full px-4 py-2 text-gray-700 bg-white rounded-lg focus:outline-none focus:shadow-outline border-gray-300"
                     type="text"
                     value={item.description}
                     onChange={(e) =>
@@ -300,17 +208,16 @@ function EditFacilityModal({ show, onClose, facility, onUpdate }) {
             <div className="mt-5 sm:mt-6 space-x-3">
               <button
                 type="submit"
-                className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Save Changes
               </button>
               <button
                 onClick={onClose}
-                className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 Cancel
               </button>
->>>>>>> eef02ebcbddcf413c7bc9a67923f20c2b6b4a1e6
             </div>
           </form>
         </div>
