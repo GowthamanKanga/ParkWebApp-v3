@@ -34,9 +34,9 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
 
   return (
     <div className="p-10 bg-white rounded">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Edit Event</h2>
+      <h2 className="text-gray-800 text-3xl font-bold text-center mb-4">Edit Event</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name" className="block text-sm text-gray-800">
+        <label htmlFor="name" className="mb-3 block text-base font-medium text-gray-800">
           Name:
         </label>
         <input
@@ -45,10 +45,10 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="name"
           value={editedEvent.name}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-        <label htmlFor="startTime" className="block text-sm text-gray-800">
+        <label htmlFor="startTime" className="mb-3 block text-base font-medium text-gray-800">
           Start Time:
         </label>
         <input
@@ -57,10 +57,10 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="startTime"
           value={editedEvent.startTime}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-        <label htmlFor="endTime" className="block text-sm text-gray-800">
+        <label htmlFor="endTime" className="mb-3 block text-base font-medium text-gray-800">
           End Time:
         </label>
         <input
@@ -69,10 +69,10 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="endTime"
           value={editedEvent.endTime}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-        <label htmlFor="location" className="block text-sm text-gray-800">
+        <label htmlFor="location" className="mb-3 block text-base font-medium text-gray-800">
           Location:
         </label>
         <input
@@ -81,21 +81,22 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="location"
           value={editedEvent.location}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-        <label htmlFor="description" className="block text-sm text-gray-800">
+        <label htmlFor="description" className="mb-3 block text-base font-medium text-gray-800">
           Description:
         </label>
         <textarea
+          rows="5"
           id="description"
           name="description"
           value={editedEvent.description}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4 h-32"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         ></textarea>
 
-        <label htmlFor="totalTickets" className="block text-sm text-gray-800">
+        <label htmlFor="totalTickets" className="mb-3 block text-base font-medium text-gray-800">
           Total Tickets:
         </label>
         <input
@@ -104,10 +105,10 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="totalTickets"
           value={editedEvent.totalTickets}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-        <label htmlFor="ticketsLeft" className="block text-sm text-gray-800">
+        <label htmlFor="ticketsLeft" className="mb-3 block text-base font-medium text-gray-800">
           Tickets Left:
         </label>
         <input
@@ -116,10 +117,10 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
           name="ticketsLeft"
           value={editedEvent.ticketsLeft}
           onChange={handleChange}
-          className="border rounded px-3 py-2 w-full mb-4"
+          className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
         />
 
-<label htmlFor="image" className="block text-sm text-gray-800">
+<label htmlFor="image" className="mb-3 block text-base font-medium text-gray-800">
     Image:
   </label>
   <input
@@ -128,20 +129,21 @@ const EditEventForm = ({ event, onEditEvent, onClose }) => {
     name="image"
     ref={fileInput}
     onChange={handleFileChange}
-    className="border rounded px-3 py-2 w-full mb-4"
+    className="form-control w-full rounded-md border border-[] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#2f3d44] focus:shadow-md"
     accept="image/*"
   />
-
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
-          Save
+        <div class="flex max-w-[200px] mx-auto justify-between">
+          <button type="submit" className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700">
+            Save
+            </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
+          >
+            Cancel
           </button>
-        <button
-          type="button"
-          onClick={onClose}
-          className="bg-gray-500 text-white px-4 py-2 rounded"
-        >
-          Cancel
-        </button>
+        </div>
       </form>
     </div>
   );
