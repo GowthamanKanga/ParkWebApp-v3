@@ -5,13 +5,22 @@ import Swal from "sweetalert2";
 import { useCallback } from "react";
 import { set } from "date-fns";
 
+
+import sparklingWineImage from '../images/sparkling-wine.jpg';
+import valentineImage from '../images/valentine.jpg';
+import stPatricksImage from '../images/st-patricks.jpg';
+import aprilFoolsImage from '../images/aprilfools.jpg';
+import mothersDayImage from '../images/champagne.jpg';
+
+
+
+
 //import DeniedForm from "./DeniedForm";
 
 const mockData = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1617854818583-09e7f077a156?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    image: sparklingWineImage,
     month: "Jan",
     date: "01",
     name: "New Year's Day Celebration",
@@ -23,8 +32,7 @@ const mockData = [
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
+    image: valentineImage,
     month: "Feb",
     date: "14",
     name: "Valentine's Day Concert",
@@ -36,8 +44,7 @@ const mockData = [
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+    image: stPatricksImage,
     month: "Mar",
     date: "17",
     name: "St. Patrick's Day Parade",
@@ -49,8 +56,7 @@ const mockData = [
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1587691592099-24045742c181?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
+    image: aprilFoolsImage,
     month: "Apr",
     date: "01",
     name: "April Fool's Day Comedy Show",
@@ -62,8 +68,7 @@ const mockData = [
   },
   {
     id: 5,
-    image:
-      "https://images.unsplash.com/photo-1517404215738-15263e9f9178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    image: mothersDayImage,
     month: "May",
     date: "09",
     name: "Mother's Day Brunch",
@@ -74,6 +79,7 @@ const mockData = [
       "Treat your mom to a special brunch at one of the city's most luxurious hotels. Enjoy a delicious meal, live music, and a special gift for all mothers in attendance. Reservations are required and can be made online or by phone.",
   },
 ];
+
 
 function EventList() {
   const [currentPage, setCurrentPage] = useState(1);

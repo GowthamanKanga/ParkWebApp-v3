@@ -74,7 +74,7 @@ function Home() {
           </nav>
           <div
         className='bg-center bg-cover py-32 flex-grow'
-        style={{ backgroundImage: `url(${centreIslandPier})` }}
+        style={{ backgroundImage: `url(https://media.istockphoto.com/id/610051788/photo/toronto-skyline-view-from-island-park.jpg?b=1&s=170667a&w=0&k=20&c=Q1jVSiZXusql1lzF7aCqBMvsfoFhpknj4MBp2Nk5d3M=)` }}
       >
         <div className='container mx-auto px-4'>
           <div className='max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md opacity-90'>
