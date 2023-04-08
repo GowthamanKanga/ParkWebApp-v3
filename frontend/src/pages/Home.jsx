@@ -3,10 +3,8 @@ import centreIslandPier from "../images/centre-island-pier.png";
 
 function Home() {
   return (
-    <div>
-      <body>
-        <div className="flex items-center justify-center h-screen bg-gray-200">
-          <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+    <div className="flex flex-col min-h-screen">
+                <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
             <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
               <a href="/Home" className="flex items-center">
                 <span className="self-center whitespace-nowrap text-xl font-semibold">
@@ -74,60 +72,122 @@ function Home() {
               </div>
             </div>
           </nav>
-          <div className="w-100 h-70">
-        <h2 className="text-4xl font-bold text-center mb-10">About Us</h2>
-        
-        <p className="mb-10 text-xl text-center text-gray-600">
-          The Park & Recreation web app is a one-stop-shop for individuals
-          who are looking for information on local parks and recreation
-          facilities. It provides a user-friendly interface that allows
-          individuals to quickly and efficiently access the information they
-          need, such as the location of the park, amenities available, and
-          upcoming events. This makes it easier for people to plan their
-          visits and make the most of their leisure time.
-        </p>
-        <p className="mb-10 text-xl text-center text-gray-800">
-          In addition to helping the general public, the Park & Recreation
-          web app also has a secondary goal of assisting park owners. Many
-          parks or recreation facilities may not have a platform for
-          providing information about their facilities, and our web
-          application aims to fill that gap. Park owners can use our
-          platform to edit or add information about their parks, making it
-          easier for people to find the information they need and ultimately
-          visit the park.
-        </p>
-        <p className="mb-10 text-xl text-center text-gray-800">
-          The Park & Recreation web app is constantly evolving and improving
-          to better serve the needs of both park owners and the public. The
-          web application includes tools for park owners to update
-          information about their parks, and for users to provide feedback
-          and ratings on parks and recreation facilities they have visited.
-          This allows the company to gather valuable insights and identify
-          areas for improvement, leading to a better user experience.
-        </p>
-        <p className="text-xl text-center text-gray-800">
-          In conclusion, the Park & Recreation web app is a valuable
-          resource for individuals looking for information on local parks
-          and recreation facilities, and for park owners who want to provide
-          information about their facilities to the public. The platform is
-          user-friendly, constantly evolving, and designed to make it easier
-          for people to find the information they need and to plan their
-          visits to the park. By providing this information, the company
-          hopes to enhance the public's experience with their local parks
-          and recreation facilities.
-        </p>
+      <div
+        className="bg-center bg-cover py-32 flex-grow"
+        style={{ backgroundImage: `url(${centreIslandPier})` }}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-5xl font-bold text-center text-white mb-10">
+            Park & Recreation
+          </h2>
+        </div>
       </div>
 
+      <div className="container mx-auto py-16 px-4">
+        <h2 className="text-4xl font-bold text-center mb-10">About Us</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">For Park Goers</h3>
+            <p className="text-gray-600">
+              The Park & Recreation web app is a one-stop-shop for individuals
+              who are looking for information on local parks and recreation
+              facilities. It provides a user-friendly interface that allows
+              individuals to quickly and efficiently access the information they
+              need, such as the location of the park, amenities available, and
+              upcoming events. This makes it easier for people to plan their
+              visits and make the most of their leisure time.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">For Park Owners</h3>
+            <p className="text-gray-600">
+              In addition to helping the general public, the Park & Recreation
+              web app also has a secondary goal of assisting park owners. Many
+              parks or recreation facilities may not have a platform for
+              providing information about their facilities, and our web
+              application aims to fill that gap. Park owners can use our
+              platform to edit or add information about their parks, making it
+              easier for people to find the information they need and ultimately
+              visit the park.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">Continuous Improvement</h3>
+            <p className="text-gray-600">
+              The Park & Recreation web app is constantly evolving and improving
+              to better serve the needs of both park owners and the public. The
+              web application includes tools for park owners to update
+              information about their parks, and for users to provide feedback
+              and ratings on parks and recreation facilities they have visited.
+              This allows the company to gather valuable insights and identify
+              areas for improvement, leading to a better user experience.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+            <p className="text-gray-600">
+              In conclusion, the Park & Recreation web app is a valuable
+              resource for individuals looking for information on local parks
+              and recreation facilities, and for park owners who want to provide
+              information about their facilities to the public. The platform is
+              user-friendly, constantly evolving, and designed to make it easier
+              for people to find the information they need and to plan their
+              visits to the park. By providing this information, the company
+              hopes to enhance the public's experience with their local parks
+              and recreation facilities.
+            </p>
+          </div>
         </div>
-        <footer className="bg-gray-900 p-10 text-white text-center">
-        <p>
-          &copy; Copyright 2022, All Rights Reserved by George Brown Company
-        </p>
-        <p>General Information</p>
-        <p>Phone:(807)938-6534</p>
-        <p>Address:Box 730, 479 Government StreetDryden, ONP8N 2Z4</p>
+      </div>
+      <footer className="bg-gray-900 p-10 text-white text-center">
+        <div className="container mx-auto px-4">
+          <p className="mb-6">
+            &copy; Copyright 2022, All Rights Reserved by George Brown Company
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-xl font-bold mb-4">General Information</h3>
+              <p>Phone: (807)938-6534</p>
+              <p>Address: Box 730, 479 Government Street Dryden, ON P8N 2Z4</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="#" className="text-white hover:underline">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white hover:underline">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white hover:underline">
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Stay Connected</h3>
+              <p>Follow us on social media:</p>
+              <div className="flex justify-center space-x-4 mt-2">
+                <a href="#" className="text-white hover:text-blue-500">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" className="text-white hover:text-blue-400">
+                  <i className="fab fa-twitter"></i>
+                </a>
+                <a href="#" className="text-white hover:text-red-600">
+                  <i className="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </footer>
-      </body>
     </div>
   );
 }

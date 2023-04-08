@@ -68,6 +68,12 @@ function ClientEventList() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedEvent, setEditedEvent] = useState(null);
   const [showAddEventModal, setShowAddEventModal] = useState(false);
+  const [formVisible, setFormVisible] = useState(true);
+
+
+  const closeForm = () => {
+    setFormVisible(false);
+  };
 
   const handleEditButtonClick = (event) => {
     setEditedEvent(event);
@@ -423,6 +429,7 @@ function ClientEventList() {
             <EventDetail event={selectedEvent} />
           </Modal>
         )}
+        
       </div>
 
       <footer className="bg-gray-900 p-10 text-white text-center">

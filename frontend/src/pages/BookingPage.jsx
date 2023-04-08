@@ -655,15 +655,7 @@ const Bookings = () => {
               </form>
             </div>
           </div>
-          <div className="flex py-16 bg-gray-100 justify-center">
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500, margin: "100px" }}
-            />
-          </div>
+
         </div>
         {/* <div>
             <Calendar

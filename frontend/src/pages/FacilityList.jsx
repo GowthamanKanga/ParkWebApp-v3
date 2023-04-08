@@ -77,13 +77,24 @@ const mockData = [
   },
 ];
 
-function EditFacilityList() {
+function FacilityList() {
   const [showModal, setShowModal] = useState(false);
   const [bookingForm, setBookingForm] = useState(false);
-  const [selectedFacility, setSelectedFacility] = useState({});
   const [searchText, setSearchText] = useState("");
   const [itemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
+  const [bookingFormVisible, setBookingFormVisible] = useState(false);
+  const [selectedFacility, setSelectedFacility] = useState(null);
+
+
+  const handleOpenBookingForm = (facility) => {
+    setSelectedFacility(facility);
+    setBookingFormVisible(true);
+  };
+
+  const handleCloseBookingForm = () => {
+    setBookingFormVisible(false);
+  };
 
   const onClose = () => setBookingForm(false);
   const handleView = (facility) => {
@@ -110,8 +121,13 @@ function EditFacilityList() {
 
   return (
     <div>
-      <BookingForm visible={bookingForm} onClose={onClose} />
-      <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
+      <BookingForm
+        visible={bookingFormVisible}
+        onClose={handleCloseBookingForm}
+        selectedFacility={selectedFacility}
+      />
+
+<nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
         <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
           <a href="/Home" className="flex items-center">
             <span className="self-center whitespace-nowrap text-xl font-semibold">
@@ -329,7 +345,7 @@ function EditFacilityList() {
                       className="w-full rounded-lg sm:w-40"
                     />
                     <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                    <div className="mt-5 sm:mt-0">
+                      <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold text-gray-900">
                           {data.name}
                         </h2>
@@ -411,83 +427,90 @@ function EditFacilityList() {
       </div>
       {showModal && (
         <div className="fixed z-30 inset-0 overflow-y-auto">
-        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
-              className="fixed inset-0 transition-opacity"
+              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
               aria-hidden="true"
+            ></div>
+            <div
+              className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
             >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <div className="mt-16 sm:mt-0">
-              <div
-                className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="modal-headline"
-              >
-                <div>
-                  <img
-                    src={selectedFacility.image}
-                    alt="facility-image"
-                    className="w-full rounded-lg"
-                  />
-                  <div className="mt-3 text-center sm:mt-5">
-                    <h3
-                      className="text-lg leading-6 font-medium text-gray-900"
-                      id="modal-headline"
-                    >
-                      {selectedFacility.name}
-                    </h3>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        {selectedFacility.description}
-                      </p>
-                    </div>
+              <div>
+                <img
+                  src={selectedFacility.image}
+                  alt="facility-image"
+                  className="w-full rounded-lg"
+                />
+                <div className="mt-3 text-center sm:mt-5">
+                  <h3
+                    className="text-lg leading-6 font-medium text-gray-900"
+                    id="modal-headline"
+                  >
+                    {selectedFacility.name}
+                  </h3>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      {selectedFacility.description}
+                    </p>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 flex justify-center">
+              </div>
+              <div className="mt-5">
+                <h4 className="text-xs font-semibold text-gray-900">
+                  Equipment:
+                </h4>
+                <ul className="list-disc pl-5">
+                  {selectedFacility.equipment.map((item, index) => (
+                    <li key={index} className="text-xs text-gray-700">
+                      {item.name} ({item.quantity}): {item.description}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-5 sm:mt-6 flex justify-center">
                 <button
-                    onClick={() => {
-                      setBookingForm(true);
-                      setShowModal(false);
-                    }}
-                    className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-                  >
-                    Open Booking Form
-                  </button>
-                </div>
+                  onClick={() => {
+                    setBookingFormVisible(true);
+                    setShowModal(false);
+                  }}
+                  
+                  className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                >
+                  Open Booking Form
+                </button>
+              </div>
 
-                <div className="absolute top-0 right-0 m-4">
-                  <button
-                    onClick={() => setShowModal(false)}
-                    className="text-red-500 hover:text-red-700 focus:outline-none"
+              <div className="absolute top-0 right-0 m-4">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-red-500 hover:text-red-700 focus:outline-none"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
                   >
-                    <svg
-                      className="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
         </div>
-        
       )}
     </div>
-    
   );
 }
 
-export default EditFacilityList;
+export default FacilityList;

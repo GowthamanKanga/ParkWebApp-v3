@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { parse } from "date-fns";
 
-const AddEventForm = ({ onEventSubmit }) => {
+const AddEventForm = ({ onEventSubmit, closeForm }) => {
+  const defaultImageUrl = "https://via.placeholder.com/150";
   const [eventData, setEventData] = useState({
     name: "",
     month: "",
@@ -10,7 +11,7 @@ const AddEventForm = ({ onEventSubmit }) => {
     endTime: "",
     location: "",
     description: "",
-    image: "",
+    image: defaultImageUrl,
     totalTickets: "",
     ticketsLeft: "",
   });
@@ -67,8 +68,11 @@ const AddEventForm = ({ onEventSubmit }) => {
         endTime: "",
         location: "",
         description: "",
-        image: "",
+        image: defaultImageUrl,
+        totalTickets: "",
+        ticketsLeft: "",
       });
+      closeForm(); // Close the form after submitting
     } else {
       alert("Please fill in all fields correctly.");
     }
@@ -197,6 +201,13 @@ const AddEventForm = ({ onEventSubmit }) => {
         <img id="image-preview" src="" alt="" />
       </label>
 
+      <button
+          type="button"
+          className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600"
+          onClick={closeForm}
+        >
+          Cancel
+        </button>
       <button
         type="submit"
         className="mt-4 bg-gray-800 text-white py-2 px-6 rounded-md hover:bg-gray-700"
