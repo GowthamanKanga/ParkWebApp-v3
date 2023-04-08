@@ -3,7 +3,7 @@ import centreIslandPier from "../images/centre-island-pier.png";
 
 function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className='flex flex-col min-h-screen'>
                 <nav className="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4">
             <div className="container mx-auto flex max-w-6xl flex-wrap items-center justify-between">
               <a href="/Home" className="flex items-center">
@@ -72,20 +72,26 @@ function Home() {
               </div>
             </div>
           </nav>
-      <div
-        className="bg-center bg-cover py-32 flex-grow"
+          <div
+        className='bg-center bg-cover py-32 flex-grow'
         style={{ backgroundImage: `url(${centreIslandPier})` }}
       >
-        <div className="container mx-auto px-4">
-          <h2 className="text-5xl font-bold text-center text-white mb-10">
-            Park & Recreation
-          </h2>
+        <div className='container mx-auto px-4'>
+          <div className='max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md opacity-90'>
+            <h2 className='text-5xl font-bold text-center text-blue-700 mb-10'>
+              GBC Park & Recreation
+            </h2>
+            <p className='text-center text-gray-600'>
+              Discover the best parks and recreation facilities in your area and
+              plan your next outdoor adventure!
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="container mx-auto py-16 px-4">
-        <h2 className="text-4xl font-bold text-center mb-10">About Us</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className='container mx-auto py-16 px-4'>
+        <h2 className='text-4xl font-bold text-center mb-10'>About Us</h2>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-2xl font-bold mb-4">For Park Goers</h3>
             <p className="text-gray-600">
@@ -139,7 +145,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <footer className="bg-gray-900 p-10 text-white text-center">
+      <footer className='bg-gray-900 p-10 text-white text-center'>
         <div className="container mx-auto px-4">
           <p className="mb-6">
             &copy; Copyright 2022, All Rights Reserved by George Brown Company
